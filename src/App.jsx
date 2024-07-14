@@ -1,17 +1,14 @@
-import { useEffect } from "react";
 import "./App.css";
-import getPlayList from "./api";
-import usePlaylists from "./hooks/usePlaylists";
+import CssBaseline from "@mui/material/CssBaseline";
+import Home from "./page/Home";
 
 function App() {
-  const { getVideosByPlaylistId, playlists } = usePlaylists();
-  useEffect(() => {
-    getVideosByPlaylistId("PL_XxuZqN0xVD0op-QDEgyXFA4fRPChvkl");
-  }, []);
-
-  console.log("playlist", playlists);
-
-  return <></>;
+  return (
+    <>
+      <CssBaseline />
+      <Home />
+    </>
+  );
 }
 
 export default App;

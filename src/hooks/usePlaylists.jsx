@@ -29,32 +29,32 @@ const usePlaylists = () => {
       setLoading(false);
     }
 
-    let chnId, chnTitle;
+    // let chnId, chnTitle;
 
-    result = result.map((item) => {
-      const {
-        channelId,
-        title,
-        description,
-        channelTitle,
-        thumbnails: { medium },
-      } = item.snippet;
+    // result = result.map((item) => {
+    //   const {
+    //     channelId,
+    //     title,
+    //     description,
+    //     channelTitle,
+    //     thumbnails: { medium },
+    //   } = item.snippet;
 
-      if (!chnId) {
-        chnId = channelId;
-      }
+    //   if (!chnId) {
+    //     chnId = channelId;
+    //   }
 
-      if (!chnTitle) {
-        chnTitle = channelTitle;
-      }
+    //   if (!chnTitle) {
+    //     chnTitle = channelTitle;
+    //   }
 
-      return {
-        title,
-        description,
-        thumbnails: medium,
-        contentDetails: item.contentDetails,
-      };
-    });
+    //   return {
+    //     title,
+    //     description,
+    //     thumbnails: medium,
+    //     contentDetails: item.contentDetails,
+    //   };
+    // });
 
     setState((prev) => ({
       ...prev,
@@ -63,8 +63,6 @@ const usePlaylists = () => {
         [playlistsId]: {
           items: result,
           playlistsId: playlistsId,
-          channelId: chnId,
-          channelTitle: chnTitle,
         },
       },
     }));
