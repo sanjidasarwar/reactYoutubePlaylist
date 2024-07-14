@@ -1,5 +1,5 @@
-import { useState } from "react";
-import getPlayList from "../api";
+import { useState, useEffect } from "react";
+import { getPlayList } from "../api";
 
 const usePlaylists = () => {
   const [state, setState] = useState({
@@ -10,62 +10,45 @@ const usePlaylists = () => {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
-  const getVideosByPlaylistId = async (playlistsId, refresh = false) => {
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
+
+  const getItemsByPlaylistId = async (playlistsId, refresh = false) => {
     if (state.playlists[playlistsId] && !refresh) {
+      setShowAlert(true);
       return;
     }
 
     setLoading(true);
 
-    let result;
-
     try {
-      result = await getPlayList(playlistsId);
+      const playlist = await getPlayList(playlistsId);
       setError("");
+      setState((prev) => ({
+        ...prev,
+        playlists: {
+          ...prev.playlists,
+          [playlistsId]: playlist,
+        },
+      }));
     } catch (err) {
       setError(err.response?.data?.error?.message || "Something went wrong!!!");
     } finally {
       setLoading(false);
     }
-
-    // let chnId, chnTitle;
-
-    // result = result.map((item) => {
-    //   const {
-    //     channelId,
-    //     title,
-    //     description,
-    //     channelTitle,
-    //     thumbnails: { medium },
-    //   } = item.snippet;
-
-    //   if (!chnId) {
-    //     chnId = channelId;
-    //   }
-
-    //   if (!chnTitle) {
-    //     chnTitle = channelTitle;
-    //   }
-
-    //   return {
-    //     title,
-    //     description,
-    //     thumbnails: medium,
-    //     contentDetails: item.contentDetails,
-    //   };
-    // });
-
-    setState((prev) => ({
-      ...prev,
-      playlists: {
-        ...prev.playlists,
-        [playlistsId]: {
-          items: result,
-          playlistsId: playlistsId,
-        },
-      },
-    }));
   };
 
   const addToFavourites = (playlistsId) => {
@@ -90,11 +73,13 @@ const usePlaylists = () => {
     playlists: state.playlists,
     recentPlaylists: getPlayListsByIds(state.recentPlaylists),
     favourites: getPlayListsByIds(state.favourites),
-    getVideosByPlaylistId,
+    getItemsByPlaylistId,
     addToFavourites,
     addToRecent,
     loading,
     error,
+    showAlert,
+    closeAlert,
   };
 };
 

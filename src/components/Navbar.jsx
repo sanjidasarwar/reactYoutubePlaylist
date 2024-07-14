@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import PlaylistForm from "./PlaylistForm";
-export default function Navbar({ getPlaylistId }) {
+export default function Navbar({ getItemsByPlaylistId }) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,7 +16,7 @@ export default function Navbar({ getPlaylistId }) {
     setOpen(false);
   };
 
-  // const getPlaylistId = (id) => {
+  // const getItemsByPlaylistId = (id) => {
   //   console.log(id);
   // };
 
@@ -38,7 +38,7 @@ export default function Navbar({ getPlaylistId }) {
             <PlaylistForm
               open={open}
               handleClose={handleClose}
-              getPlaylistId={getPlaylistId}
+              getItemsByPlaylistId={getItemsByPlaylistId}
             />
           </Toolbar>
         </Container>
