@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { getPlayList } from "../api";
+import storage from "../utils/Storage";
 
 const usePlaylists = () => {
-  const [state, setState] = useState({
+  const STORAGE_KEY = "youtube_playlist";
+  const INIT_STATE = {
     playlists: {},
     recentPlaylists: [],
     favourites: [],
-  });
+  };
+  const [state, setState] = useState(
+    storage.get(STORAGE_KEY) ? storage.get(STORAGE_KEY) : INIT_STATE
+  );
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,6 +26,17 @@ const usePlaylists = () => {
       return () => clearTimeout(timer);
     }
   }, [showAlert]);
+
+  useEffect(() => {
+    const data = storage.get(STORAGE_KEY);
+    if (data) {
+      setState({ ...data });
+    }
+  }, []);
+
+  useEffect(() => {
+    storage.save(STORAGE_KEY, state);
+  }, [state]);
 
   const closeAlert = () => {
     setShowAlert(false);
