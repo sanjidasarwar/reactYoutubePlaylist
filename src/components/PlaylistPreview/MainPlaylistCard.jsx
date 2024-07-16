@@ -3,16 +3,20 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
-import { Button, Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { PlayCircleFilledOutlined } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 
-function PlaylistCard({ playlist }) {
-  const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
-    playlist;
+function MainPlaylistCard({ playlistInfo }) {
+  const {
+    playlistTitle,
+    channelTitle,
+    playlistThumbnails,
+    playlistDescription,
+  } = playlistInfo;
+
   return (
-    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+    <Card>
       <CardMedia
         component="img"
         height="194"
@@ -27,22 +31,26 @@ function PlaylistCard({ playlist }) {
       </CardContent>
       <Box sx={{ flexGrow: 1 }}>
         <CardActions disableSpacing>
-          <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
+          <Button>
             <Stack direction="row">
-              <PlayCircleFilledOutlined color="primary" />
               <Typography
                 variant="body2"
                 color="primary"
-                sx={{ fontWeight: "bold", marginLeft: "5px", marginTop: "3px" }}
+                sx={{
+                  fontWeight: "bold",
+                  marginLeft: "5px",
+                  marginTop: "3px",
+                }}
               >
-                View Full Playlist
+                Play All
               </Typography>
             </Stack>
           </Button>
         </CardActions>
+        <Typography variant="body2">{playlistDescription}</Typography>
       </Box>
     </Card>
   );
 }
 
-export default PlaylistCard;
+export default MainPlaylistCard;

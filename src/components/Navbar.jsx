@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import PlaylistForm from "./PlaylistForm";
 export default function Navbar({ getItemsByPlaylistId }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -15,10 +15,6 @@ export default function Navbar({ getItemsByPlaylistId }) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // const getItemsByPlaylistId = (id) => {
-  //   console.log(id);
-  // };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
