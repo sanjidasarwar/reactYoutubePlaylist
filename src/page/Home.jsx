@@ -9,6 +9,7 @@ function Home() {
     usePlaylists();
 
   const playlistsArray = Object.values(playlists);
+  console.log(playlistsArray);
 
   return (
     <>

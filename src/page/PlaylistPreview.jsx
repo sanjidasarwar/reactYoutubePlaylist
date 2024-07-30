@@ -18,7 +18,6 @@ function Playlist() {
     getItemsByPlaylistId(playlistId);
   }, []);
 
-  console.log(playlists[playlistId]);
   return (
     <>
       <Container>

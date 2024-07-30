@@ -4,13 +4,25 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-function PlaylistItem({ playlistItem, channelTitle }) {
+function PlaylistItem({ playlistItem, channelTitle, handleVideoChange }) {
   const { thumbnails, title } = playlistItem;
+  const videoId = playlistItem.contentDetails.videoId;
   return (
     <Box sx={{ display: "flex", marginBottom: "20px" }}>
-      <img src={thumbnails.url} alt="" height="90" width="160" />
+      <img
+        src={thumbnails.url}
+        alt=""
+        height="90"
+        width="160"
+        style={{ cursor: "pointer" }}
+        onClick={() => handleVideoChange(videoId)}
+      />
       <Box sx={{ marginLeft: "20px" }}>
-        <Typography variant="body" sx={{ fontWeight: "bold" }}>
+        <Typography
+          variant="body"
+          sx={{ fontWeight: "bold", cursor: "pointer" }}
+          onClick={() => handleVideoChange(videoId)}
+        >
           {title} | {channelTitle}
         </Typography>
       </Box>
