@@ -6,7 +6,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import PlaylistForm from "./PlaylistForm";
-export default function Navbar({ getItemsByPlaylistId }) {
+
+export default function Navbar({ handleShowAlert }) {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,7 +35,7 @@ export default function Navbar({ getItemsByPlaylistId }) {
             <PlaylistForm
               open={open}
               handleClose={handleClose}
-              getItemsByPlaylistId={getItemsByPlaylistId}
+              handleShowAlert={handleShowAlert}
             />
           </Toolbar>
         </Container>

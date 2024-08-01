@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,21 +6,27 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPlaylists } from "../features/playlists/playlistsSlice";
 
-export default function PlaylistForm({
-  open,
-  handleClose,
-  getItemsByPlaylistId,
-}) {
-  const [state, setState] = useState();
+export default function PlaylistForm({ open, handleClose, handleShowAlert }) {
+  const [id, setId] = useState("");
+
+  const dispatch = useDispatch();
+  const { playlists } = useSelector((state) => state.allPlaylistsData);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!state) {
+    if (!id) {
       alert("Please insert a playlist id or link");
     } else {
-      getItemsByPlaylistId(state);
-      setState("");
-      handleClose();
+      if (playlists[id]) {
+        handleShowAlert();
+      } else {
+        dispatch(fetchPlaylists(id));
+        setId("");
+        handleClose();
+      }
     }
   };
 
@@ -42,7 +48,7 @@ export default function PlaylistForm({
             type="text"
             fullWidth
             variant="standard"
-            onChange={(e) => setState(e.target.value)}
+            onChange={(e) => setId(e.target.value)}
           />
         </DialogContent>
         <DialogActions>

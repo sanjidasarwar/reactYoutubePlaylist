@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPlayList } from "../../api";
+import storage from "../../utils/Storage";
+
+const STORAGE_KEY = "youtube_playlist";
 
 const initialState = {
   playlists: {},
@@ -18,7 +21,9 @@ export const fetchPlaylists = createAsyncThunk(
 
 export const playlistsSlice = createSlice({
   name: "playlists",
-  initialState,
+  initialState: storage.get(STORAGE_KEY)
+    ? storage.get(STORAGE_KEY)
+    : initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPlaylists.pending, (state) => {
@@ -28,6 +33,7 @@ export const playlistsSlice = createSlice({
     builder.addCase(fetchPlaylists.fulfilled, (state, action) => {
       state.isLoading = true;
       state.playlists[action.payload.playlistId] = action.payload;
+      storage.save(STORAGE_KEY, state);
     });
     builder.addCase(fetchPlaylists.rejected, (state, action) => {
       state.isError = true;
