@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 function PlaylistCard({ playlist }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
     playlist;
+
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <CardMedia
@@ -19,7 +20,11 @@ function PlaylistCard({ playlist }) {
         image={playlistThumbnails.url}
         alt={playlistTitle}
       />
-      <CardContent>
+      <CardContent
+        to={`VideoPlaylist/${playlistId}`}
+        component={Link}
+        sx={{ textDecoration: "none" }}
+      >
         <Typography variant="h5">{playlistTitle}</Typography>
         <Typography variant="body2" color="text.secondary">
           {channelTitle}

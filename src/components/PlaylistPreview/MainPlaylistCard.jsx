@@ -6,8 +6,11 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function MainPlaylistCard({ playlistInfo }) {
+  const { playlistId } = useParams();
   const {
     playlistTitle,
     channelTitle,
@@ -32,7 +35,12 @@ function MainPlaylistCard({ playlistInfo }) {
       <Box sx={{ flexGrow: 1 }}>
         <CardActions disableSpacing>
           <Button>
-            <Stack direction="row">
+            <Stack
+              direction="row"
+              to={`/VideoPlaylist/${playlistId}`}
+              component={Link}
+              sx={{ textDecoration: "none" }}
+            >
               <Typography
                 variant="body2"
                 color="primary"
