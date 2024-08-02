@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import storage from "../../utils/Storage";
+
+const STORAGE_KEY = "favourite_playlist";
 
 const initialState = {
   favourites: [],
@@ -10,6 +13,7 @@ export const favouritesSlice = createSlice({
   reducers: {
     addToFavourites: (state, action) => {
       state.favourites.push(action.payload);
+      storage.save(STORAGE_KEY, state);
     },
     removeFromFavourites: (state, action) => {
       state.favourites = state.favourites.filter(
