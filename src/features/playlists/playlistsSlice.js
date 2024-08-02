@@ -24,7 +24,12 @@ export const playlistsSlice = createSlice({
   initialState: storage.get(STORAGE_KEY)
     ? storage.get(STORAGE_KEY)
     : initialState,
-  reducers: {},
+  reducers: {
+    removePlaylist: (state, action) => {
+      delete state.playlists[action.payload];
+      storage.save(STORAGE_KEY, state);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPlaylists.pending, (state) => {
       state.isError = false;
@@ -42,5 +47,7 @@ export const playlistsSlice = createSlice({
     });
   },
 });
+
+export const { removePlaylist } = playlistsSlice.actions;
 
 export default playlistsSlice.reducer;

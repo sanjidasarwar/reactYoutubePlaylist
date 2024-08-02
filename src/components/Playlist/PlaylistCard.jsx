@@ -6,11 +6,21 @@ import Typography from "@mui/material/Typography";
 import { Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import { PlayCircleFilledOutlined } from "@mui/icons-material";
+import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removePlaylist } from "../../features/playlists/playlistsSlice";
 
 function PlaylistCard({ playlist }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
     playlist;
+
+  const dispatch = useDispatch();
+
+  const handledelete = (id) => {
+    console.log(dispatch(removePlaylist(id)));
+  };
 
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -44,6 +54,13 @@ function PlaylistCard({ playlist }) {
               </Typography>
             </Stack>
           </Button>
+          <Stack direction="row">
+            <FavoriteRoundedIcon color="success" />
+            <RemoveCircleRoundedIcon
+              color="error"
+              onClick={() => handledelete(playlistId)}
+            />
+          </Stack>
         </CardActions>
       </Box>
     </Card>
