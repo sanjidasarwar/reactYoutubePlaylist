@@ -14,6 +14,7 @@ import { removePlaylist } from "../../features/playlists/playlistsSlice";
 import { addToFavourites } from "../../features/favourites/favouritesSlice";
 import { useState } from "react";
 import AlertBox from "../AlertBox";
+import DeleteAlertBox from "../DeleteAlertBox";
 
 function PlaylistCard({ playlist }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
@@ -27,8 +28,15 @@ function PlaylistCard({ playlist }) {
   const dispatch = useDispatch();
 
   const handledelete = (id) => {
-    setDeleteAlert(true);
+    // setDeleteAlert(true);
     dispatch(removePlaylist(id));
+  };
+
+  const showDeleteAlert = () => {
+    setDeleteAlert(true);
+  };
+  const closeDeleteAlert = () => {
+    setDeleteAlert(false);
   };
 
   const handleAddToFavourite = (favouritePlaylist) => {
@@ -95,7 +103,8 @@ function PlaylistCard({ playlist }) {
               />
               <RemoveCircleRoundedIcon
                 color="error"
-                onClick={() => handledelete(playlistId)}
+                //onClick={() => handledelete(playlistId)}
+                onClick={showDeleteAlert}
               />
             </Stack>
           </CardActions>
@@ -106,6 +115,14 @@ function PlaylistCard({ playlist }) {
           handleClose={handleClose}
           showAlert={showAlert}
           message="This playlist is already in your favourites."
+        />
+      )}
+      {deleteAlert && (
+        <DeleteAlertBox
+          deleteAlert={deleteAlert}
+          closeDeleteAlert={closeDeleteAlert}
+          handledelete={handledelete}
+          playlistId={playlistId}
         />
       )}
     </>
