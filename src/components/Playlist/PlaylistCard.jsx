@@ -9,61 +9,106 @@ import { PlayCircleFilledOutlined } from "@mui/icons-material";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removePlaylist } from "../../features/playlists/playlistsSlice";
+import { addToFavourites } from "../../features/favourites/favouritesSlice";
+import { useState } from "react";
+import AlertBox from "../AlertBox";
 
 function PlaylistCard({ playlist }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
     playlist;
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [deleteAlert, setDeleteAlert] = useState(false);
+
+  const { favourites } = useSelector((state) => state.favouritePlaylists);
+
   const dispatch = useDispatch();
 
   const handledelete = (id) => {
-    console.log(dispatch(removePlaylist(id)));
+    setDeleteAlert(true);
+    dispatch(removePlaylist(id));
+  };
+
+  const handleAddToFavourite = (favouritePlaylist) => {
+    const isInFavouriteList = favourites.some(
+      (favourite) => favourite.playlistId === favouritePlaylist.playlistId
+    );
+
+    if (isInFavouriteList) {
+      setShowAlert(true);
+    } else {
+      dispatch(addToFavourites(favouritePlaylist));
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setShowAlert(false);
   };
 
   return (
-    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <CardMedia
-        component="img"
-        height="194"
-        image={playlistThumbnails.url}
-        alt={playlistTitle}
-      />
-      <CardContent
-        to={`VideoPlaylist/${playlistId}`}
-        component={Link}
-        sx={{ textDecoration: "none" }}
-      >
-        <Typography variant="h5">{playlistTitle}</Typography>
-        <Typography variant="body2" color="text.secondary">
-          {channelTitle}
-        </Typography>
-      </CardContent>
-      <Box sx={{ flexGrow: 1 }}>
-        <CardActions disableSpacing>
-          <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
+    <>
+      <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+        <CardMedia
+          component="img"
+          height="194"
+          image={playlistThumbnails.url}
+          alt={playlistTitle}
+        />
+        <CardContent
+          to={`VideoPlaylist/${playlistId}`}
+          component={Link}
+          sx={{ textDecoration: "none" }}
+        >
+          <Typography variant="h5">{playlistTitle}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {channelTitle}
+          </Typography>
+        </CardContent>
+        <Box sx={{ flexGrow: 1 }}>
+          <CardActions disableSpacing>
+            <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
+              <Stack direction="row">
+                <PlayCircleFilledOutlined color="primary" />
+                <Typography
+                  variant="body2"
+                  color="primary"
+                  sx={{
+                    fontWeight: "bold",
+                    marginLeft: "5px",
+                    marginTop: "3px",
+                  }}
+                >
+                  View Full Playlist
+                </Typography>
+              </Stack>
+            </Button>
             <Stack direction="row">
-              <PlayCircleFilledOutlined color="primary" />
-              <Typography
-                variant="body2"
-                color="primary"
-                sx={{ fontWeight: "bold", marginLeft: "5px", marginTop: "3px" }}
-              >
-                View Full Playlist
-              </Typography>
+              <FavoriteRoundedIcon
+                color="success"
+                onClick={() => handleAddToFavourite(playlist)}
+              />
+              <RemoveCircleRoundedIcon
+                color="error"
+                onClick={() => handledelete(playlistId)}
+              />
             </Stack>
-          </Button>
-          <Stack direction="row">
-            <FavoriteRoundedIcon color="success" />
-            <RemoveCircleRoundedIcon
-              color="error"
-              onClick={() => handledelete(playlistId)}
-            />
-          </Stack>
-        </CardActions>
-      </Box>
-    </Card>
+          </CardActions>
+        </Box>
+      </Card>
+      {showAlert && (
+        <AlertBox
+          handleClose={handleClose}
+          showAlert={showAlert}
+          message="This playlist is already in your favourites."
+        />
+      )}
+    </>
   );
 }
 

@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 // import usePlaylists from "../hooks/usePlaylists";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import AlertBox from "../components/AlertBox";
 
 function Home() {
   // const { playlists, getItemsByPlaylistId, showAlert, closeAlert } =
@@ -44,14 +45,11 @@ function Home() {
           ))}
         </Grid>
         {showAlert && (
-          <Alert
-            variant="filled"
-            severity="info"
-            sx={{ position: "absolute", right: "10px", top: "100px" }}
-            onClose={handleCloseAlert}
-          >
-            You have added this playlist earlier
-          </Alert>
+          <AlertBox
+            handleClose={handleCloseAlert}
+            showAlert={showAlert}
+            message="This playlist is already in your playlists."
+          />
         )}
       </Container>
     </>
