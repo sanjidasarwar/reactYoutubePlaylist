@@ -9,11 +9,11 @@ import PlaylistForm from "./PlaylistForm";
 
 export default function Navbar({ handleShowAlert }) {
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
+  const handleOpenModal = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseModal = () => {
     setOpen(false);
   };
 
@@ -28,14 +28,16 @@ export default function Navbar({ handleShowAlert }) {
             <Button
               variant="contained"
               color="success"
-              onClick={handleClickOpen}
+              onClick={handleOpenModal}
+              aria-hidden={false}
             >
               Add Playlist
             </Button>
             <PlaylistForm
               open={open}
-              handleClose={handleClose}
+              handleCloseModal={handleCloseModal}
               handleShowAlert={handleShowAlert}
+              inert
             />
           </Toolbar>
         </Container>

@@ -8,8 +8,28 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlaylists } from "../features/playlists/playlistsSlice";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Stack from "@mui/material/Stack";
 
-export default function PlaylistForm({ open, handleClose, handleShowAlert }) {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function PlaylistForm({
+  open,
+  handleCloseModal,
+  handleShowAlert,
+}) {
   const [id, setId] = useState("");
 
   const dispatch = useDispatch();
@@ -22,42 +42,48 @@ export default function PlaylistForm({ open, handleClose, handleShowAlert }) {
     } else {
       if (playlists[id]) {
         handleShowAlert();
+        handleCloseModal();
       } else {
         dispatch(fetchPlaylists(id));
         setId("");
-        handleClose();
+        handleCloseModal();
       }
     }
   };
 
   return (
-    <>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Playlist</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To add a new playlist please insert the playlist id or palylist link
-          </DialogContentText>
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="playistId"
-            name="playistId"
-            label="Playist Id"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={(e) => setId(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+    <Modal
+      open={open}
+      onClose={handleCloseModal}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Text in a modal
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        </Typography>
+        <TextField
+          autoFocus
+          required
+          margin="dense"
+          id="playistId"
+          name="playistId"
+          label="Playist Id"
+          type="text"
+          fullWidth
+          variant="standard"
+          onChange={(e) => setId(e.target.value)}
+        />
+        <Stack direction="row" spacing={2}>
+          <Button onClick={handleCloseModal}>Cancel</Button>
           <Button type="submit" onClick={handleSubmit}>
             Add
           </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+        </Stack>
+      </Box>
+    </Modal>
   );
 }
