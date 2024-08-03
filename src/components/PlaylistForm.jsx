@@ -35,6 +35,13 @@ export default function PlaylistForm({
   const dispatch = useDispatch();
   const { playlists } = useSelector((state) => state.allPlaylistsData);
 
+  const handleChange = (event) => {
+    const inputValue = event.target.value;
+    const match = inputValue.match(/[?&]list=([a-zA-Z0-9_-]+)/);
+
+    match ? setId(match[1]) : setId(inputValue);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!id) {
@@ -75,7 +82,7 @@ export default function PlaylistForm({
           type="text"
           fullWidth
           variant="standard"
-          onChange={(e) => setId(e.target.value)}
+          onChange={(e) => handleChange(e)}
         />
         <Stack direction="row" spacing={2}>
           <Button onClick={handleCloseModal}>Cancel</Button>
