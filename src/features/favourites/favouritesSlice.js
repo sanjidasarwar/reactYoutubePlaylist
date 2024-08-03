@@ -19,8 +19,9 @@ export const favouritesSlice = createSlice({
     },
     removeFromFavourites: (state, action) => {
       state.favourites = state.favourites.filter(
-        (fovourite) => fovourite.playlistId === action.payload
+        (fovourite) => fovourite.playlistId !== action.payload
       );
+      storage.save(STORAGE_KEY, state);
     },
   },
 });

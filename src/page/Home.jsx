@@ -19,15 +19,6 @@ function Home() {
     setShowAlert(true);
   };
 
-  useEffect(() => {
-    if (showAlert) {
-      const timer = setTimeout(() => {
-        setShowAlert(false);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showAlert]);
   return (
     <>
       <Navbar handleShowAlert={handleShowAlert} />

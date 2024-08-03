@@ -17,18 +17,17 @@ import AlertBox from "../AlertBox";
 import DeleteAlertBox from "../DeleteAlertBox";
 import { addToRecent } from "../../features/recent/recentSlice";
 
-function PlaylistCard({ playlist }) {
+function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
     playlist;
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
 
-  const dispatch = useDispatch();
+  const { favourites } = useSelector((state) => state.favouritePlaylists);
 
-  const handledelete = (id) => {
-    dispatch(removePlaylist(id));
-  };
+  const dispatch = useDispatch();
 
   const showDeleteAlert = () => {
     setDeleteAlert(true);
@@ -43,18 +42,27 @@ function PlaylistCard({ playlist }) {
     );
 
     if (isInFavouriteList) {
-      setShowAlert(true);
+      setShowErrorAlert(true);
     } else {
       dispatch(addToFavourites(favouritePlaylist));
+      setSuccessAlert(true);
     }
   };
 
-  const handleClose = (event, reason) => {
+  const handleErrorClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setShowAlert(false);
+    setShowErrorAlert(false);
+  };
+
+  const handleSuccessClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSuccessAlert(false);
   };
 
   const handleRecent = (recentplaylist) => {
@@ -108,24 +116,36 @@ function PlaylistCard({ playlist }) {
               </Stack>
             </Button>
             <Stack direction="row">
-              <FavoriteRoundedIcon
-                color="success"
-                onClick={() => handleAddToFavourite(playlist)}
-              />
-              <RemoveCircleRoundedIcon
-                color="error"
-                //onClick={() => handledelete(playlistId)}
-                onClick={showDeleteAlert}
-              />
+              {favouriteIcon && (
+                <FavoriteRoundedIcon
+                  color="success"
+                  onClick={() => handleAddToFavourite(playlist)}
+                />
+              )}
+              {deleteIcon && (
+                <RemoveCircleRoundedIcon
+                  color="error"
+                  onClick={showDeleteAlert}
+                />
+              )}
             </Stack>
           </CardActions>
         </Box>
       </Card>
-      {showAlert && (
+      {showErrorAlert && (
         <AlertBox
-          handleClose={handleClose}
-          showAlert={showAlert}
+          handleClose={handleErrorClose}
+          showAlert={showErrorAlert}
+          type="error"
           message="This playlist is already in your favourites."
+        />
+      )}
+      {successAlert && (
+        <AlertBox
+          handleClose={handleSuccessClose}
+          showAlert={successAlert}
+          type="success"
+          message="Successfully added in your favourites list."
         />
       )}
       {deleteAlert && (
