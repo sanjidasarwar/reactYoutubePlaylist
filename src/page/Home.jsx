@@ -1,21 +1,16 @@
+import * as React from "react";
 import Navbar from "../components/Navbar";
-import PlaylistCard from "../components/Playlist/PlaylistCard";
 import { Container, Grid } from "@mui/material";
-import Alert from "@mui/material/Alert";
 // import usePlaylists from "../hooks/usePlaylists";
-import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import AlertBox from "../components/AlertBox";
+import HomeTab from "../components/Home/HomeTab";
 
 function Home() {
   // const { playlists, getItemsByPlaylistId, showAlert, closeAlert } =
   //   usePlaylists();
 
   const [showAlert, setShowAlert] = useState(false);
-
-  const { playlists } = useSelector((state) => state.allPlaylistsData);
-
-  const playlistsArray = Object.values(playlists);
 
   const handleCloseAlert = () => {
     setShowAlert(false);
@@ -36,22 +31,16 @@ function Home() {
   return (
     <>
       <Navbar handleShowAlert={handleShowAlert} />
-      <Container>
-        <Grid container spacing={2} sx={{ marginTop: "20px" }}>
-          {playlistsArray?.map((listItem) => (
-            <Grid item xs={4} key={listItem.playlistId}>
-              <PlaylistCard playlist={listItem} />
-            </Grid>
-          ))}
-        </Grid>
-        {showAlert && (
-          <AlertBox
-            handleClose={handleCloseAlert}
-            showAlert={showAlert}
-            message="This playlist is already in your playlists."
-          />
-        )}
-      </Container>
+      {/* <Container> */}
+      <HomeTab />
+      {showAlert && (
+        <AlertBox
+          handleClose={handleCloseAlert}
+          showAlert={showAlert}
+          message="This playlist is already in your playlists."
+        />
+      )}
+      {/* </Container> */}
     </>
   );
 }
