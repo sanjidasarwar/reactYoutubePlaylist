@@ -26,6 +26,7 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
   const [deleteAlert, setDeleteAlert] = useState(false);
 
   const { favourites } = useSelector((state) => state.favouritePlaylists);
+  const { recent } = useSelector((state) => state.recentPlaylists);
 
   const dispatch = useDispatch();
 
@@ -49,6 +50,20 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
     }
   };
 
+  const handleRecent = (recentplaylist) => {
+    console.log("entered");
+
+    const isInRecentList = recent.some(
+      (item) => item.playlistId === recentplaylist.playlistId
+    );
+
+    if (isInRecentList) {
+      return;
+    } else {
+      dispatch(addToRecent(recentplaylist));
+    }
+  };
+
   const handleErrorClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -65,18 +80,6 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
     setSuccessAlert(false);
   };
 
-  const handleRecent = (recentplaylist) => {
-    const isInRecentList = recent.some(
-      (item) => item.playlistId === recentplaylist.playlistId
-    );
-
-    if (isInRecentList) {
-      return;
-    } else {
-      dispatch(addToRecent(recentplaylist));
-    }
-  };
-
   return (
     <>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -90,7 +93,7 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
           to={`VideoPlaylist/${playlistId}`}
           component={Link}
           sx={{ textDecoration: "none" }}
-          onClick={() => handleRecent(playlist)}
+          onMouseDown={() => handleRecent(playlist)}
         >
           <Typography variant="h5">{playlistTitle}</Typography>
           <Typography variant="body2" color="text.secondary">
