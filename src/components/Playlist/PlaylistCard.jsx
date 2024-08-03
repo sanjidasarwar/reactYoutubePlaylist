@@ -24,8 +24,6 @@ function PlaylistCard({ playlist }) {
   const [showAlert, setShowAlert] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
 
-  const { recent } = useSelector((state) => state.recentPlaylists);
-
   const dispatch = useDispatch();
 
   const handledelete = (id) => {

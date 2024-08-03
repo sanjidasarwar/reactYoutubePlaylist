@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import AllPlaylists from "./AllPlaylists";
 import FavouritePlaylist from "./FavouritePlaylist";
+import RecentPlaylist from "./RecentPlaylist";
 
 function a11yProps(index) {
   return {
@@ -57,7 +58,7 @@ function HomeTab() {
           <FavouritePlaylist />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Recent
+          <RecentPlaylist />
         </TabPanel>
         <TabPanel value={value} index={3}>
           My Choice
