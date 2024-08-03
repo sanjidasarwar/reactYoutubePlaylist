@@ -9,7 +9,9 @@ const initialState = {
 
 export const recentSlice = createSlice({
   name: "recent",
-  initialState,
+  initialState: storage.get(STORAGE_KEY)
+    ? storage.get(STORAGE_KEY)
+    : initialState,
   reducers: {
     addToRecent: (state, action) => {
       state.recent.unshift(action.payload);

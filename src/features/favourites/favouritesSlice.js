@@ -9,7 +9,9 @@ const initialState = {
 
 export const favouritesSlice = createSlice({
   name: "favourites",
-  initialState,
+  initialState: storage.get(STORAGE_KEY)
+    ? storage.get(STORAGE_KEY)
+    : initialState,
   reducers: {
     addToFavourites: (state, action) => {
       state.favourites.push(action.payload);
