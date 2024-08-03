@@ -15,6 +15,7 @@ import { addToFavourites } from "../../features/favourites/favouritesSlice";
 import { useState } from "react";
 import AlertBox from "../AlertBox";
 import DeleteAlertBox from "../DeleteAlertBox";
+import { addToRecent } from "../../features/recent/recentSlice";
 
 function PlaylistCard({ playlist }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
@@ -24,11 +25,11 @@ function PlaylistCard({ playlist }) {
   const [deleteAlert, setDeleteAlert] = useState(false);
 
   const { favourites } = useSelector((state) => state.favouritePlaylists);
+  const { recent } = useSelector((state) => state.recentPlaylists);
 
   const dispatch = useDispatch();
 
   const handledelete = (id) => {
-    // setDeleteAlert(true);
     dispatch(removePlaylist(id));
   };
 
@@ -59,6 +60,18 @@ function PlaylistCard({ playlist }) {
     setShowAlert(false);
   };
 
+  const handleRecent = (recentplaylist) => {
+    const isInRecentList = recent.some(
+      (item) => item.playlistId === recentplaylist.playlistId
+    );
+
+    if (isInRecentList) {
+      return;
+    } else {
+      dispatch(addToRecent(recentplaylist));
+    }
+  };
+
   return (
     <>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -72,6 +85,7 @@ function PlaylistCard({ playlist }) {
           to={`VideoPlaylist/${playlistId}`}
           component={Link}
           sx={{ textDecoration: "none" }}
+          onClick={() => handleRecent(playlist)}
         >
           <Typography variant="h5">{playlistTitle}</Typography>
           <Typography variant="body2" color="text.secondary">
