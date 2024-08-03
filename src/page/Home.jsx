@@ -31,16 +31,16 @@ function Home() {
   return (
     <>
       <Navbar handleShowAlert={handleShowAlert} />
-      {/* <Container> */}
-      <HomeTab />
-      {showAlert && (
-        <AlertBox
-          handleClose={handleCloseAlert}
-          showAlert={showAlert}
-          message="This playlist is already in your playlists."
-        />
-      )}
-      {/* </Container> */}
+      <Container>
+        <HomeTab />
+        {showAlert && (
+          <AlertBox
+            handleClose={handleCloseAlert}
+            showAlert={showAlert}
+            message="This playlist is already in your playlists."
+          />
+        )}
+      </Container>
     </>
   );
 }
