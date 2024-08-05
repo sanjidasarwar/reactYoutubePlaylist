@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import AddPlaylistModal from "./AddPlaylistModal";
+import AddCustomPlaylistModal from "./AddCustomPlaylistModal";
 
 export default function Navbar({
   handleShowErrorAlert,
@@ -21,6 +22,7 @@ export default function Navbar({
               handleShowErrorAlert={handleShowErrorAlert}
               handleShowSuccessAlert={handleShowSuccessAlert}
             />
+            <AddCustomPlaylistModal />
           </Toolbar>
         </Container>
       </AppBar>
