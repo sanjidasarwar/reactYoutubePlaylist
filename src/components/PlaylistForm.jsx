@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlaylists } from "../features/playlists/playlistsSlice";
 import Box from "@mui/material/Box";
@@ -28,7 +23,14 @@ const style = {
 export default function PlaylistForm({
   open,
   handleCloseModal,
-  handleShowAlert,
+  handleShowErrorAlert,
+  handleShowSuccessAlert,
+  showEmptyMessage,
+  handleShowEmptyMessage,
+  handleCloseEmptyMessage,
+  handleShowErrorMessage,
+  handleCloseErrorMessage,
+  showErrorMessage,
 }) {
   const [id, setId] = useState("");
 
@@ -40,20 +42,29 @@ export default function PlaylistForm({
     const match = inputValue.match(/[?&]list=([a-zA-Z0-9_-]+)/);
 
     match ? setId(match[1]) : setId(inputValue);
+
+    handleCloseEmptyMessage();
+    handleCloseErrorMessage();
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!id) {
-      alert("Please insert a playlist id or link");
+      handleShowEmptyMessage();
     } else {
       if (playlists[id]) {
-        handleShowAlert();
+        handleShowErrorAlert();
         handleCloseModal();
       } else {
         dispatch(fetchPlaylists(id));
-        setId("");
-        handleCloseModal();
+        if (!showErrorMessage) {
+          handleShowErrorMessage();
+          return;
+        } else {
+          setId("");
+          handleCloseModal();
+          handleShowSuccessAlert();
+        }
       }
     }
   };
@@ -84,6 +95,16 @@ export default function PlaylistForm({
           variant="standard"
           onChange={(e) => handleChange(e)}
         />
+        {showEmptyMessage && (
+          <Typography id="modal-modal-description" sx={{ color: "red" }}>
+            Please insert a playlist id or link
+          </Typography>
+        )}
+        {showErrorMessage && (
+          <Typography id="modal-modal-description" sx={{ color: "red" }}>
+            Please insert a valid playlist id or link
+          </Typography>
+        )}
         <Stack direction="row" spacing={2}>
           <Button onClick={handleCloseModal}>Cancel</Button>
           <Button type="submit" onClick={handleSubmit}>

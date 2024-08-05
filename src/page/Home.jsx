@@ -10,25 +10,44 @@ function Home() {
   // const { playlists, getItemsByPlaylistId, showAlert, closeAlert } =
   //   usePlaylists();
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [showSucessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  const handleCloseAlert = () => {
-    setShowAlert(false);
+  const handleCloseErrorAlert = () => {
+    setShowErrorAlert(false);
   };
-  const handleShowAlert = () => {
-    setShowAlert(true);
+  const handleShowErrorAlert = () => {
+    setShowErrorAlert(true);
+  };
+  const handleCloseSuccessAlert = () => {
+    setShowSuccessAlert(false);
+  };
+  const handleShowSuccessAlert = () => {
+    setShowSuccessAlert(true);
   };
 
   return (
     <>
-      <Navbar handleShowAlert={handleShowAlert} />
+      <Navbar
+        handleShowErrorAlert={handleShowErrorAlert}
+        handleShowSuccessAlert={handleShowSuccessAlert}
+      />
       <Container>
         <HomeTab />
-        {showAlert && (
+        {showErrorAlert && (
           <AlertBox
-            handleClose={handleCloseAlert}
-            showAlert={showAlert}
+            type="error"
+            handleClose={handleCloseErrorAlert}
+            showAlert={showErrorAlert}
             message="This playlist is already in your playlists."
+          />
+        )}
+        {showSucessAlert && (
+          <AlertBox
+            type="success"
+            handleClose={handleCloseSuccessAlert}
+            showAlert={showSucessAlert}
+            message="Successfully added in your playlists."
           />
         )}
       </Container>

@@ -51,8 +51,6 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
   };
 
   const handleRecent = (recentplaylist) => {
-    console.log("entered");
-
     const isInRecentList = recent.some(
       (item) => item.playlistId === recentplaylist.playlistId
     );
