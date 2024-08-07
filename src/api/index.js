@@ -56,8 +56,34 @@ export const getPlayList = async (playlistId) => {
   };
 };
 
-// export const getCustomPlaylist =(id)=>{
+export const getYouTubeVideoId = (url) => {
+  const regex =
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^&]+)/;
+  const matches = url.match(regex);
+  return matches ? matches[1] || matches[2] : null;
+};
 
-// }
+export const getVideoDetails = async (url) => {
+  const videoId = getYouTubeVideoId(url);
+  const video = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${key}`;
+
+  try {
+    const response = await axios.get(video);
+    const id = response.data.items[0].id;
+    const videoData = response.data.items[0].snippet;
+    const { title, channelTitle, thumbnails } = videoData;
+    const thumbnailUrl = thumbnails.medium.url;
+
+    return {
+      id,
+      title,
+      channelTitle,
+      thumbnail: thumbnailUrl,
+    };
+  } catch (error) {
+    console.error("Error fetching video details:", error);
+    return null;
+  }
+};
 
 // export default getPlayList;
