@@ -13,6 +13,8 @@ import thumbnail from "../../assets/images/thumbnail.jpg";
 
 function CustomPlaylistCard({ playlist }) {
   const { playlistTitle } = playlist;
+  console.log(playlist);
+
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <CardMedia

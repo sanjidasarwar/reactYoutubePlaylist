@@ -26,7 +26,10 @@ export const customPlaylistSlice = createSlice({
   initialState,
   reducers: {
     addPlaylistName: (state, action) => {
-      state.playlists[action.payload] = [];
+      state.playlists[action.payload] = {
+        playlistTitle: action.payload,
+        playlistItem: [],
+      };
     },
   },
   extraReducers: (builder) => {
@@ -38,7 +41,7 @@ export const customPlaylistSlice = createSlice({
       state.isLoading = true;
       console.log(action);
 
-      state.playlists[action.payload.playlistTitle].push(
+      state.playlists[action.payload.playlistTitle].playlistItem.push(
         action.payload.customPlaylist
       );
     });
