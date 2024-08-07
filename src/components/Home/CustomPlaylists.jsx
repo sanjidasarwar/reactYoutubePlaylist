@@ -1,30 +1,24 @@
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import PlaylistCard from "../Playlist/PlaylistCard";
-import { useDispatch, useSelector } from "react-redux";
-import { removePlaylist } from "../../features/playlists/playlistsSlice";
+import CustomPlaylistCard from "../CustomPlaylist/CustomPlaylistCard";
 
-function AllPlaylists() {
-  const { playlists } = useSelector((state) => state.allPlaylistsData);
-
+function CustomPlaylists() {
+  const { playlists } = useSelector((state) => state.customPlaylists);
   const playlistsArray = Object.values(playlists);
-
-  const dispatch = useDispatch();
-
-  const handlePlaylistdelete = (id) => {
-    dispatch(removePlaylist(id));
-  };
 
   return (
     <>
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
         {playlistsArray?.map((listItem) => (
           <Grid item xs={4} key={listItem.playlistId}>
-            <PlaylistCard
+            <CustomPlaylistCard playlist={listItem} />
+            {/* <PlaylistCard
               playlist={listItem}
               favouriteIcon={true}
               deleteIcon={true}
-              handledelete={handlePlaylistdelete}
-            />
+              //handledelete={handlePlaylistdelete}
+            /> */}
           </Grid>
         ))}
       </Grid>
@@ -32,4 +26,4 @@ function AllPlaylists() {
   );
 }
 
-export default AllPlaylists;
+export default CustomPlaylists;

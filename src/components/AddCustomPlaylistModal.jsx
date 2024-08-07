@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import { useDispatch } from "react-redux";
 import { addPlaylistName } from "../features/customPlaylists/customPlaylistSlice";
+import AlertBox from "../components/AlertBox";
 
 const style = {
   position: "absolute",
@@ -23,6 +24,7 @@ const style = {
 function AddCustomPlaylistModal() {
   const [open, setOpen] = useState(false);
   const [playlistName, setPlaylistName] = useState("");
+  const [showSucessAlert, setShowSuccessAlert] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -32,6 +34,7 @@ function AddCustomPlaylistModal() {
 
   const handleCloseModal = () => {
     setOpen(false);
+    setShowSuccessAlert(false);
   };
 
   const handleChange = (e) => {
@@ -39,6 +42,9 @@ function AddCustomPlaylistModal() {
   };
   const handleSubmit = () => {
     dispatch(addPlaylistName(playlistName));
+    setPlaylistName("");
+    setShowSuccessAlert(true);
+    handleCloseModal();
   };
 
   return (
@@ -85,6 +91,14 @@ function AddCustomPlaylistModal() {
           </Stack>
         </Box>
       </Modal>
+      {showSucessAlert && (
+        <AlertBox
+          type="success"
+          handleClose={setShowSuccessAlert(false)}
+          showAlert={showSucessAlert}
+          message="Successfully added in your playlists."
+        />
+      )}
     </>
   );
 }

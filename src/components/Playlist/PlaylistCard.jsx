@@ -10,7 +10,6 @@ import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removePlaylist } from "../../features/playlists/playlistsSlice";
 import { addToFavourites } from "../../features/favourites/favouritesSlice";
 import { useState } from "react";
 import AlertBox from "../AlertBox";

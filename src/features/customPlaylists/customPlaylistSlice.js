@@ -10,7 +10,7 @@ export const customPlaylistSlice = createSlice({
   reducers: {
     addPlaylistName: (state, action) => {
       state.playlists[action.payload] = {
-        playlistName: action.payload,
+        playlistTitle: action.payload,
       };
     },
   },

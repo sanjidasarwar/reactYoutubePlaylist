@@ -6,6 +6,7 @@ import { useState } from "react";
 import AllPlaylists from "./AllPlaylists";
 import FavouritePlaylist from "./FavouritePlaylist";
 import RecentPlaylist from "./RecentPlaylist";
+import CustomPlaylists from "./CustomPlaylists";
 
 function a11yProps(index) {
   return {
@@ -61,7 +62,7 @@ function HomeTab() {
           <RecentPlaylist />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          My Choice
+          <CustomPlaylists />
         </TabPanel>
       </Box>
     </Box>
