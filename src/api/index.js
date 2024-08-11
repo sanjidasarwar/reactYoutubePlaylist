@@ -31,6 +31,7 @@ export const getPlayList = async (playlistId) => {
   let playlistItems = await getPlayListItem(playlistId);
 
   playlistItems = playlistItems.map((item) => {
+    const { id } = item;
     const {
       title,
       description,
@@ -38,6 +39,7 @@ export const getPlayList = async (playlistId) => {
     } = item.snippet;
 
     return {
+      id,
       title,
       description,
       thumbnails: medium,
