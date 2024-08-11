@@ -8,6 +8,9 @@ import Stack from "@mui/material/Stack";
 import { useDispatch } from "react-redux";
 import { addPlaylistName } from "../features/customPlaylists/customPlaylistSlice";
 import AlertBox from "../components/AlertBox";
+import ShortUniqueId from "short-unique-id";
+
+const uid = new ShortUniqueId();
 
 const style = {
   position: "absolute",
@@ -23,8 +26,10 @@ const style = {
 
 function AddCustomPlaylistModal() {
   const [open, setOpen] = useState(false);
-  const [playlistName, setPlaylistName] = useState("");
+  const [playlistName, setPlaylistName] = useState({});
   const [showSucessAlert, setShowSuccessAlert] = useState(false);
+
+  console.log(playlistName);
 
   const dispatch = useDispatch();
 
@@ -38,11 +43,16 @@ function AddCustomPlaylistModal() {
   };
 
   const handleChange = (e) => {
-    setPlaylistName(e.target.value);
+    setPlaylistName({
+      [e.target.name]: e.target.value,
+      playlistId: uid.rnd(),
+    });
   };
   const handleSubmit = () => {
+    console.log(playlistName);
+
     dispatch(addPlaylistName(playlistName));
-    setPlaylistName("");
+    // setPlaylistName({});
     setShowSuccessAlert(true);
     handleCloseModal();
   };

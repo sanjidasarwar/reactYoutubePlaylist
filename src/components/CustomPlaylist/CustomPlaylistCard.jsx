@@ -13,7 +13,6 @@ import thumbnail from "../../assets/images/thumbnail.jpg";
 
 function CustomPlaylistCard({ playlist }) {
   const { playlistTitle } = playlist;
-  console.log(playlist);
 
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -28,7 +27,7 @@ function CustomPlaylistCard({ playlist }) {
       </CardContent>
       <Box sx={{ flexGrow: 1 }}>
         <CardActions disableSpacing>
-          <Button to={`PlaylistPreview/`} component={Link}>
+          <Button to={`PlaylistPreview/${playlistTitle}`} component={Link}>
             <Stack direction="row">
               <PlayCircleFilledOutlined color="primary" />
               <Typography
