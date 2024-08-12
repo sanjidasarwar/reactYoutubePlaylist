@@ -77,7 +77,7 @@ export const getVideoDetails = async (url) => {
     const thumbnailUrl = thumbnails.medium.url;
 
     return {
-      id,
+      videoId: id,
       title,
       channelTitle,
       thumbnail: thumbnailUrl,
