@@ -42,8 +42,9 @@ export const getPlayList = async (playlistId) => {
       id,
       title,
       description,
-      thumbnails: medium,
+      thumbnails: medium.url,
       contentDetails: item.contentDetails,
+      videoId: item.contentDetails.videoId,
     };
   });
 
@@ -80,7 +81,7 @@ export const getVideoDetails = async (url) => {
       videoId: id,
       title,
       channelTitle,
-      thumbnail: thumbnailUrl,
+      thumbnails: thumbnailUrl,
     };
   } catch (error) {
     console.error("Error fetching video details:", error);

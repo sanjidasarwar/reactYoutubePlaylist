@@ -2,6 +2,7 @@ import "./App.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Home from "./page/Home";
 import PageNotFound from "./page/PageNotFound";
+import CustomPlaylistPreview from "./page/CustomPlaylistPreview";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -18,10 +19,10 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="PlaylistPreview/:playlistId" element={<PlaylistPreview />} />
       <Route path="VideoPlaylist/:playlistId" element={<VideoPlaylist />} />
-      <Route
-        path="PlaylistPreview/:playlistName"
-        element={<PlaylistPreview />}
-      />
+      {/* <Route
+        path="/PlaylistPreview/:playlistName"
+        element={<CustomPlaylistPreview />}
+      /> */}
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

@@ -14,7 +14,7 @@ import { fetchCustomPlaylist } from "../../features/customPlaylists/customPlayli
 function CustomPlaylists() {
   const { playlists } = useSelector((state) => state.customPlaylists);
   const playlistsArray = Object.values(playlists);
-  const playlistsNameArray = Object.keys(playlists);
+  const playlistsIdArray = Object.keys(playlists);
 
   const [selecedPlaylist, setSelectedPlaylist] = useState("");
   const [selecedVideo, setSelectedVideo] = useState("");
@@ -34,7 +34,7 @@ function CustomPlaylists() {
 
     dispatch(
       fetchCustomPlaylist({
-        playlistTitle: selecedPlaylist,
+        playlistId: selecedPlaylist,
         link: selecedVideo,
       })
     );
@@ -59,11 +59,10 @@ function CustomPlaylists() {
             id="demo-simple-select-standard"
             value={name}
             onChange={handlePlaylistChange}
-            //label="Age"
           >
-            {playlistsNameArray.map((name) => (
-              <MenuItem value={name} key={name}>
-                {name}
+            {playlistsIdArray.map((id) => (
+              <MenuItem value={id} key={id}>
+                {playlists[id].playlistTitle}
               </MenuItem>
             ))}
           </Select>
@@ -71,8 +70,8 @@ function CustomPlaylists() {
         </FormControl>
       </form>
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
-        {playlistsArray?.map((listItem, index) => (
-          <Grid item xs={4} key={index}>
+        {playlistsArray?.map((listItem) => (
+          <Grid item xs={4} key={listItem.playlistId}>
             <CustomPlaylistCard playlist={listItem} />
             {/* <PlaylistCard
               playlist={listItem}

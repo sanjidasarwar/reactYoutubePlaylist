@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import DefaultImg from "../../assets/images/thumbnail.jpg";
 
 function MainPlaylistCard({ playlistInfo }) {
   const { playlistId } = useParams();
@@ -23,14 +24,16 @@ function MainPlaylistCard({ playlistInfo }) {
       <CardMedia
         component="img"
         height="194"
-        image={playlistThumbnails.url}
+        image={playlistThumbnails?.url || DefaultImg}
         alt={playlistTitle}
       />
       <CardContent>
         <Typography variant="h5">{playlistTitle}</Typography>
-        <Typography variant="body2" color="text.secondary">
-          {channelTitle}
-        </Typography>
+        {channelTitle && (
+          <Typography variant="body2" color="text.secondary">
+            {channelTitle}
+          </Typography>
+        )}
       </CardContent>
       <Box sx={{ flexGrow: 1 }}>
         <CardActions disableSpacing>
@@ -55,7 +58,9 @@ function MainPlaylistCard({ playlistInfo }) {
             </Stack>
           </Button>
         </CardActions>
-        <Typography variant="body2">{playlistDescription}</Typography>
+        {playlistDescription && (
+          <Typography variant="body2">{playlistDescription}</Typography>
+        )}
       </Box>
     </Card>
   );

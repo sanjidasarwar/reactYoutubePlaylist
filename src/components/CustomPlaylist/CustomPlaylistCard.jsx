@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import thumbnail from "../../assets/images/thumbnail.jpg";
 
 function CustomPlaylistCard({ playlist }) {
-  const { playlistTitle } = playlist;
+  const { playlistTitle, playlistId } = playlist;
 
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -27,7 +27,7 @@ function CustomPlaylistCard({ playlist }) {
       </CardContent>
       <Box sx={{ flexGrow: 1 }}>
         <CardActions disableSpacing>
-          <Button to={`PlaylistPreview/${playlistTitle}`} component={Link}>
+          <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
             <Stack direction="row">
               <PlayCircleFilledOutlined color="primary" />
               <Typography
