@@ -5,10 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 function PlaylistItem({ playlistItem, channelTitle, handleVideoChange }) {
-  console.log(playlistItem);
-
   const { thumbnails, title, videoId } = playlistItem;
-  // const videoId = playlistItem.contentDetails.videoId || playlistItem.videoId;
   return (
     <Box sx={{ display: "flex", marginBottom: "20px" }}>
       <img

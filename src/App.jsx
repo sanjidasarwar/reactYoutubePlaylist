@@ -19,10 +19,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="PlaylistPreview/:playlistId" element={<PlaylistPreview />} />
       <Route path="VideoPlaylist/:playlistId" element={<VideoPlaylist />} />
-      {/* <Route
-        path="/PlaylistPreview/:playlistName"
-        element={<CustomPlaylistPreview />}
-      /> */}
+
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

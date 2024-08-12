@@ -6,29 +6,45 @@ import Container from "@mui/material/Container";
 import PlaylistItem from "../components/PlaylistPreview/PlaylistItem";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlaylist/VideoPlayer";
+import { useSelector } from "react-redux";
 
 function VideoPlaylist() {
   const { playlistId } = useParams();
-  const { playlists, getItemsByPlaylistId } = usePlaylists();
+  // const { playlists, getItemsByPlaylistId } = usePlaylists();
   const [videoId, setVideoId] = useState("");
+  const [items, setItems] = useState(null);
+  const [channelName, setChannelName] = useState("");
 
-  const playlistItems = playlists[playlistId].playlistItems;
-  const { channelTitle } = playlists[playlistId];
-  console.log(playlistItems);
+  const { playlists } = useSelector((state) => state.allPlaylistsData);
+  const { playlists: customPlaylists } = useSelector(
+    (state) => state.customPlaylists
+  );
+
+  // const playlistItems = playlists[playlistId].playlistItems;
+  // const { channelTitle } = playlists[playlistId];
 
   const handleVideoChange = (newVideoId) => {
     setVideoId(newVideoId);
   };
 
-  useEffect(() => {
-    getItemsByPlaylistId(playlistId);
-  }, [playlistId, getItemsByPlaylistId]);
+  // useEffect(() => {
+  //   getItemsByPlaylistId(playlistId);
+  // }, [playlistId, getItemsByPlaylistId]);
 
   useEffect(() => {
     if (playlists[playlistId]) {
-      setVideoId(playlists[playlistId].playlistItems[0].contentDetails.videoId);
+      const playlistItems = playlists[playlistId].playlistItems;
+      const { channelTitle: channelName } = playlists[playlistId];
+
+      setVideoId(playlists[playlistId].playlistItems[0].videoId);
+      setItems(playlistItems);
+      setChannelName(channelName);
+    } else if (customPlaylists[playlistId]) {
+      setVideoId(customPlaylists[playlistId].playlistItems[0].videoId);
+      const playlistItems = customPlaylists[playlistId].playlistItems;
+      setItems(playlistItems);
     }
-  }, [playlists, playlistId]);
+  }, [playlists, customPlaylists, playlistId]);
 
   return (
     <Container>
@@ -38,11 +54,11 @@ function VideoPlaylist() {
             {videoId && <VideoPlayer videoId={videoId} />}
           </Grid>
           <Grid item xs={5}>
-            {playlistItems.map((item) => (
+            {items?.map((item) => (
               <PlaylistItem
-                key={item.contentDetails.videoId}
+                key={item.videoId}
                 playlistItem={item}
-                channelTitle={channelTitle}
+                channelTitle={channelName}
                 handleVideoChange={handleVideoChange}
               />
             ))}

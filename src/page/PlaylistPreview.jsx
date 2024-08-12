@@ -43,7 +43,7 @@ function Playlist() {
       });
     } else if (customPlaylists[playlistId]) {
       const playlistItems = customPlaylists[playlistId].playlistItems;
-      const { channelTitle: channelName } = customPlaylists[playlistId];
+      // const { channelTitle: channelName } = customPlaylists[playlistId];
       const { playlistTitle } = customPlaylists[playlistId];
 
       setItems(playlistItems);
