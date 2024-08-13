@@ -59,15 +59,15 @@ export const getPlayList = async (playlistId) => {
   };
 };
 
-export const getYouTubeVideoId = (url) => {
-  const regex =
-    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^&]+)/;
-  const matches = url.match(regex);
-  return matches ? matches[1] || matches[2] : null;
-};
+// export const getYouTubeVideoId = (url) => {
+//   const regex =
+//     /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^&]+)/;
+//   const matches = url.match(regex);
+//   return matches ? matches[1] || matches[2] : null;
+// };
 
-export const getVideoDetails = async (url) => {
-  const videoId = getYouTubeVideoId(url);
+export const getVideoDetails = async (videoId) => {
+  // const videoId = getYouTubeVideoId(url);
   const video = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${key}`;
 
   try {

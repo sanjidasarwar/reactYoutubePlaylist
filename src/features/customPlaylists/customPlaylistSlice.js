@@ -14,7 +14,7 @@ const initialState = {
 export const fetchCustomPlaylist = createAsyncThunk(
   "customPlaylist/fetchCustomPlaylist",
   async (payload) => {
-    const customPlaylist = await getVideoDetails(payload.link);
+    const customPlaylist = await getVideoDetails(payload.videoId);
     const playlistId = payload.playlistId;
 
     return {

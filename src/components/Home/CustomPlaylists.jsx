@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import PlaylistCard from "../Playlist/PlaylistCard";
-import CustomPlaylistCard from "../CustomPlaylist/CustomPlaylistCard";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -20,12 +19,17 @@ function CustomPlaylists() {
   const playlistsIdArray = Object.keys(playlists);
 
   const [selecedPlaylist, setSelectedPlaylist] = useState("");
-  const [selecedVideo, setSelectedVideo] = useState("");
+  const [selecedVideoId, setSelectedVideoId] = useState("");
 
   const dispatch = useDispatch();
 
   const handleVideoChange = (e) => {
-    setSelectedVideo(e.target.value);
+    const url = e.target.value;
+    const regex =
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^&]+)/;
+    const matches = url.match(regex);
+    const id = matches ? matches[1] || matches[2] : null;
+    setSelectedVideoId(id);
   };
 
   const handlePlaylistChange = (e) => {
@@ -35,12 +39,23 @@ function CustomPlaylists() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(
-      fetchCustomPlaylist({
-        playlistId: selecedPlaylist,
-        link: selecedVideo,
-      })
+    const hasInPlaylsit = playlists[selecedPlaylist].playlistItems.some(
+      (item) => item.videoId === selecedVideoId
     );
+
+    if (hasInPlaylsit) {
+      alert("error");
+    } else {
+      dispatch(
+        fetchCustomPlaylist({
+          playlistId: selecedPlaylist,
+          videoId: selecedVideoId,
+        })
+      );
+      alert("success");
+      setSelectedVideoId("");
+      setSelectedPlaylist("");
+    }
   };
 
   const handlePlaylistdelete = (id) => {
