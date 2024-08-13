@@ -29,8 +29,6 @@ function AddCustomPlaylistModal() {
   const [playlistName, setPlaylistName] = useState({});
   const [showSucessAlert, setShowSuccessAlert] = useState(false);
 
-  console.log(playlistName);
-
   const dispatch = useDispatch();
 
   const handleOpenModal = () => {
@@ -49,8 +47,6 @@ function AddCustomPlaylistModal() {
     });
   };
   const handleSubmit = () => {
-    console.log(playlistName);
-
     dispatch(addPlaylistName(playlistName));
     // setPlaylistName({});
     setShowSuccessAlert(true);

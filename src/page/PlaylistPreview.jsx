@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import usePlaylists from "../hooks/usePlaylists";
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 function Playlist() {
   const { playlistId } = useParams();
+  const navigate = useNavigate();
   // const { playlists, getItemsByPlaylistId } = usePlaylists();
 
   const { playlists } = useSelector((state) => state.allPlaylistsData);
@@ -21,6 +22,10 @@ function Playlist() {
   const [items, setItems] = useState(null);
   const [channelName, setChannelName] = useState("");
   const [playlistInfo, setPlaylistInfo] = useState(null);
+
+  const handleVideoChange = (videoId) => {
+    navigate(`/VideoPlaylist/${playlistId}?videoId=${videoId}`);
+  };
 
   useEffect(() => {
     if (playlists[playlistId]) {
@@ -66,9 +71,10 @@ function Playlist() {
             <Grid item xs={7}>
               {items.map((item) => (
                 <PlaylistItem
-                  key={item.id}
+                  key={item.videoId}
                   playlistItem={item}
                   channelTitle={channelName}
+                  handleVideoChange={handleVideoChange}
                 />
               ))}
             </Grid>

@@ -4,13 +4,16 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import PlaylistItem from "../components/PlaylistPreview/PlaylistItem";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlaylist/VideoPlayer";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function VideoPlaylist() {
   const { playlistId } = useParams();
-  // const { playlists, getItemsByPlaylistId } = usePlaylists();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [videoId, setVideoId] = useState("");
   const [items, setItems] = useState(null);
   const [channelName, setChannelName] = useState("");
@@ -24,12 +27,9 @@ function VideoPlaylist() {
   // const { channelTitle } = playlists[playlistId];
 
   const handleVideoChange = (newVideoId) => {
+    navigate(`${location.pathname}?videoId=${newVideoId}`);
     setVideoId(newVideoId);
   };
-
-  // useEffect(() => {
-  //   getItemsByPlaylistId(playlistId);
-  // }, [playlistId, getItemsByPlaylistId]);
 
   useEffect(() => {
     if (playlists[playlistId]) {
@@ -45,6 +45,14 @@ function VideoPlaylist() {
       setItems(playlistItems);
     }
   }, [playlists, customPlaylists, playlistId]);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const initialVideoId = queryParams.get("videoId");
+    if (initialVideoId) {
+      setVideoId(initialVideoId);
+    }
+  }, [location.search]);
 
   return (
     <Container>

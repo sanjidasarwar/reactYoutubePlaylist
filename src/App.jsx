@@ -2,7 +2,6 @@ import "./App.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Home from "./page/Home";
 import PageNotFound from "./page/PageNotFound";
-import CustomPlaylistPreview from "./page/CustomPlaylistPreview";
 import {
   createBrowserRouter,
   createRoutesFromElements,
