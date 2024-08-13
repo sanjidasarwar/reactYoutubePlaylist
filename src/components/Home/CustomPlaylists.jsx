@@ -72,13 +72,12 @@ function CustomPlaylists() {
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
         {playlistsArray?.map((listItem) => (
           <Grid item xs={4} key={listItem.playlistId}>
-            <CustomPlaylistCard playlist={listItem} />
-            {/* <PlaylistCard
+            <PlaylistCard
               playlist={listItem}
               favouriteIcon={true}
               deleteIcon={true}
-              //handledelete={handlePlaylistdelete}
-            /> */}
+              // handledelete={handlePlaylistdelete}
+            />
           </Grid>
         ))}
       </Grid>

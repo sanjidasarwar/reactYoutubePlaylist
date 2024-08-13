@@ -22,7 +22,11 @@ function CustomPlaylistCard({ playlist }) {
         image={thumbnail}
         alt={playlistTitle}
       />
-      <CardContent to={``} component={Link} sx={{ textDecoration: "none" }}>
+      <CardContent
+        to={`VideoPlaylist/${playlistId}`}
+        component={Link}
+        sx={{ textDecoration: "none" }}
+      >
         <Typography variant="h5">{playlistTitle}</Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }}>

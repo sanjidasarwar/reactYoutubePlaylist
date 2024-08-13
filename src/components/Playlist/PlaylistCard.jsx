@@ -15,6 +15,7 @@ import { useState } from "react";
 import AlertBox from "../AlertBox";
 import DeleteAlertBox from "../DeleteAlertBox";
 import { addToRecent } from "../../features/recent/recentSlice";
+import DefaultImage from "../../assets/images/thumbnail.jpg";
 
 function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
   const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
@@ -83,7 +84,7 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
         <CardMedia
           component="img"
           height="194"
-          image={playlistThumbnails.url}
+          image={playlistThumbnails?.url || DefaultImage}
           alt={playlistTitle}
         />
         <CardContent
