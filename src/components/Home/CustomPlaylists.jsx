@@ -9,7 +9,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import { fetchCustomPlaylist } from "../../features/customPlaylists/customPlaylistSlice";
+import {
+  fetchCustomPlaylist,
+  removeCustomPlaylist,
+} from "../../features/customPlaylists/customPlaylistSlice";
 
 function CustomPlaylists() {
   const { playlists } = useSelector((state) => state.customPlaylists);
@@ -40,6 +43,9 @@ function CustomPlaylists() {
     );
   };
 
+  const handlePlaylistdelete = (id) => {
+    dispatch(removeCustomPlaylist(id));
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -76,7 +82,7 @@ function CustomPlaylists() {
               playlist={listItem}
               favouriteIcon={true}
               deleteIcon={true}
-              // handledelete={handlePlaylistdelete}
+              handledelete={handlePlaylistdelete}
             />
           </Grid>
         ))}

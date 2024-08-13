@@ -37,6 +37,10 @@ export const customPlaylistSlice = createSlice({
         playlistItems: [],
       };
     },
+    removeCustomPlaylist: (state, action) => {
+      delete state.playlists[action.payload];
+      storage.save(STORAGE_KEY, state);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCustomPlaylist.pending, (state) => {
@@ -59,6 +63,6 @@ export const customPlaylistSlice = createSlice({
   },
 });
 
-export const { addPlaylistName, addPlaylistVideo } =
+export const { addPlaylistName, addPlaylistVideo, removeCustomPlaylist } =
   customPlaylistSlice.actions;
 export default customPlaylistSlice.reducer;
