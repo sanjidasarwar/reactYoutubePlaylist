@@ -22,6 +22,7 @@ function Playlist() {
   const [items, setItems] = useState(null);
   const [channelName, setChannelName] = useState("");
   const [playlistInfo, setPlaylistInfo] = useState(null);
+  const [showDeleteIcon, setDeleteIcon] = useState(false);
 
   const handleVideoChange = (videoId) => {
     navigate(`/VideoPlaylist/${playlistId}?videoId=${videoId}`);
@@ -48,12 +49,12 @@ function Playlist() {
       });
     } else if (customPlaylists[playlistId]) {
       const playlistItems = customPlaylists[playlistId].playlistItems;
-      // const { channelTitle: channelName } = customPlaylists[playlistId];
       const { playlistTitle } = customPlaylists[playlistId];
 
       setItems(playlistItems);
       setChannelName(channelName);
       setPlaylistInfo({ playlistTitle });
+      setDeleteIcon(true);
     }
   }, [playlistId, playlists, customPlaylists, items]);
 
@@ -71,10 +72,12 @@ function Playlist() {
             <Grid item xs={7}>
               {items.map((item) => (
                 <PlaylistItem
+                  playlistId={playlistId}
                   key={item.videoId}
                   playlistItem={item}
                   channelTitle={channelName}
                   handleVideoChange={handleVideoChange}
+                  deleteIcon={showDeleteIcon}
                 />
               ))}
             </Grid>

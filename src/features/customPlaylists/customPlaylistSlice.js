@@ -41,6 +41,18 @@ export const customPlaylistSlice = createSlice({
       delete state.playlists[action.payload];
       storage.save(STORAGE_KEY, state);
     },
+    removePlaylistItem: (state, action) => {
+      const { playlistId, videoId } = action.payload;
+      const playlist = state.playlists[playlistId];
+
+      if (playlist) {
+        playlist.playlistItems = playlist.playlistItems.filter(
+          (item) => item.videoId !== videoId
+        );
+      }
+
+      storage.save(STORAGE_KEY, state);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCustomPlaylist.pending, (state) => {
@@ -63,6 +75,10 @@ export const customPlaylistSlice = createSlice({
   },
 });
 
-export const { addPlaylistName, addPlaylistVideo, removeCustomPlaylist } =
-  customPlaylistSlice.actions;
+export const {
+  addPlaylistName,
+  addPlaylistVideo,
+  removeCustomPlaylist,
+  removePlaylistItem,
+} = customPlaylistSlice.actions;
 export default customPlaylistSlice.reducer;
