@@ -10,31 +10,31 @@ function Home() {
   // const { playlists, getItemsByPlaylistId, showAlert, closeAlert } =
   //   usePlaylists();
 
-  const [showSucessAlert, setShowSuccessAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  // const [showSucessAlert, setShowSuccessAlert] = useState(false);
+  // const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  const handleCloseErrorAlert = () => {
-    setShowErrorAlert(false);
-  };
-  const handleShowErrorAlert = () => {
-    setShowErrorAlert(true);
-  };
-  const handleCloseSuccessAlert = () => {
-    setShowSuccessAlert(false);
-  };
-  const handleShowSuccessAlert = () => {
-    setShowSuccessAlert(true);
-  };
+  // const handleCloseErrorAlert = () => {
+  //   setShowErrorAlert(false);
+  // };
+  // const handleShowErrorAlert = () => {
+  //   setShowErrorAlert(true);
+  // };
+  // const handleCloseSuccessAlert = () => {
+  //   setShowSuccessAlert(false);
+  // };
+  // const handleShowSuccessAlert = () => {
+  //   setShowSuccessAlert(true);
+  // };
 
   return (
     <>
-      <Navbar
+      {/* <Navbar
         handleShowErrorAlert={handleShowErrorAlert}
         handleShowSuccessAlert={handleShowSuccessAlert}
-      />
+      /> */}
       <Container>
         <HomeTab />
-        {showErrorAlert && (
+        {/* {showErrorAlert && (
           <AlertBox
             type="error"
             handleClose={handleCloseErrorAlert}
@@ -49,7 +49,7 @@ function Home() {
             showAlert={showSucessAlert}
             message="Successfully added in your playlists."
           />
-        )}
+        )} */}
       </Container>
     </>
   );

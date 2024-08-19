@@ -14,7 +14,7 @@ import VideoPlaylist from "./page/VideoPlaylist";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
+    <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="PlaylistPreview/:playlistId" element={<PlaylistPreview />} />
       <Route path="VideoPlaylist/:playlistId" element={<VideoPlaylist />} />
