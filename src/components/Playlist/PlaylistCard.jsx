@@ -18,8 +18,13 @@ import { addToRecent } from "../../features/recent/recentSlice";
 import DefaultImage from "../../assets/images/thumbnail.jpg";
 
 function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
-  const { playlistTitle, channelTitle, playlistThumbnails, playlistId } =
-    playlist;
+  const {
+    playlistTitle,
+    channelTitle,
+    playlistThumbnails,
+    playlistId,
+    playlistItemNumber,
+  } = playlist;
 
   const [successAlert, setSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -96,6 +101,9 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
           <Typography variant="h5">{playlistTitle}</Typography>
           <Typography variant="body2" color="text.secondary">
             {channelTitle}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            ({playlistItemNumber} videos)
           </Typography>
         </CardContent>
         <Box sx={{ flexGrow: 1 }}>

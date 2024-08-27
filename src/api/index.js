@@ -56,6 +56,7 @@ export const getPlayList = async (playlistId) => {
     channelTitle,
     channelId,
     playlistItems,
+    playlistItemNumber: playlistItems.length,
   };
 };
 
