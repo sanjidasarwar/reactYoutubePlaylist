@@ -46,7 +46,11 @@ function AddPlaylistModal({ handleShowSuccessAlert, handleShowErrorAlert }) {
     <>
       <Button
         variant="contained"
-        color="success"
+        sx={{
+          backgroundColor: "gold",
+          color: "purple",
+          "&:hover": { backgroundColor: "gold", color: "white" },
+        }}
         onClick={handleOpenModal}
         aria-hidden={false}
       >

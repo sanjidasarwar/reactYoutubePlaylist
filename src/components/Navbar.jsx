@@ -12,10 +12,10 @@ export default function Navbar({
 }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ bgcolor: "purple" }}>
         <Container>
           <Toolbar>
-            <Typography variant="h3" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ flexGrow: 1, my: 2 }}>
               Youtube Playlist
             </Typography>
             <AddPlaylistModal

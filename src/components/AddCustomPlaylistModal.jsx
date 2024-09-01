@@ -60,7 +60,12 @@ function AddCustomPlaylistModal() {
         color="success"
         onClick={handleOpenModal}
         aria-hidden={false}
-        sx={{ marginLeft: "15px" }}
+        sx={{
+          backgroundColor: "gold",
+          color: "purple",
+          "&:hover": { backgroundColor: "gold", color: "white" },
+          marginLeft: "15px",
+        }}
       >
         Add Custom Playlist
       </Button>
