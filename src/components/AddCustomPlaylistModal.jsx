@@ -21,7 +21,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 function AddCustomPlaylistModal() {
@@ -75,33 +75,81 @@ function AddCustomPlaylistModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Custom Playlist
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Add a youtube video link to create your own palylist
-          </Typography>
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="playistName"
-            name="playistName"
-            label="Playist Name"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={handleChange}
-          />
-          <Stack direction="row" spacing={2}>
-            <Button onClick={handleCloseModal}>Cancel</Button>
-            <Button type="submit" onClick={handleSubmit}>
-              Add
-            </Button>
-          </Stack>
+        <Box
+          sx={{
+            backgroundColor: "white",
+            borderRadius: 2,
+            maxWidth: 400,
+            mx: "auto",
+            mt: 10,
+            overflow: "hidden",
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: "purple",
+              color: "white",
+              padding: 2,
+              textAlign: "center",
+            }}
+          >
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Custom Playlist
+            </Typography>
+          </Box>
+
+          <Box sx={{ padding: 3 }}>
+            <Typography id="modal-modal-description">
+              Add a YouTube video link to create your own playlist
+            </Typography>
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="playlistName"
+              name="playlistName"
+              label="Playlist Name"
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              sx={{
+                input: { color: "purple" },
+                "& .MuiInputLabel-root": { color: "purple" },
+                "& .MuiInput-underline:before": { borderBottomColor: "purple" },
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottomColor: "purple",
+                },
+                "& .MuiInput-underline:after": { borderBottomColor: "purple" },
+              }}
+            />
+            <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+              <Button
+                onClick={handleCloseModal}
+                sx={{
+                  backgroundColor: "#c62828",
+                  color: "white",
+                  "&:hover": { backgroundColor: "#b71c1c" },
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                sx={{
+                  backgroundColor: "#FFD700",
+                  color: "white",
+                  "&:hover": { backgroundColor: "#FFC300" },
+                }}
+              >
+                Add
+              </Button>
+            </Stack>
+          </Box>
         </Box>
       </Modal>
+
       {showSucessAlert && (
         <AlertBox
           type="success"

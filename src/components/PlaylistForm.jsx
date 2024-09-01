@@ -70,47 +70,139 @@ export default function PlaylistForm({
   };
 
   return (
+    // <Modal
+    //   open={open}
+    //   onClose={handleCloseModal}
+    //   aria-labelledby="modal-modal-title"
+    //   aria-describedby="modal-modal-description"
+    // >
+    //   <Box sx={style}>
+    //     <Typography id="modal-modal-title" variant="h6" component="h2">
+    //       Youtube Playlist
+    //     </Typography>
+    //     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+    //       Add a youtube playlist id or link
+    //     </Typography>
+    //     <TextField
+    //       autoFocus
+    //       required
+    //       margin="dense"
+    //       id="playistId"
+    //       name="playistId"
+    //       label="Playist Id"
+    //       type="text"
+    //       fullWidth
+    //       variant="standard"
+    //       onChange={(e) => handleChange(e)}
+    //     />
+    //     {showEmptyMessage && (
+    //       <Typography id="modal-modal-description" sx={{ color: "red" }}>
+    //         Please insert a playlist id or link
+    //       </Typography>
+    //     )}
+    //     {showErrorMessage && (
+    //       <Typography id="modal-modal-description" sx={{ color: "red" }}>
+    //         Please insert a valid playlist id or link
+    //       </Typography>
+    //     )}
+    //     <Stack direction="row" spacing={2}>
+    //       <Button onClick={handleCloseModal}>Cancel</Button>
+    //       <Button type="submit" onClick={handleSubmit}>
+    //         Add
+    //       </Button>
+    //     </Stack>
+    //   </Box>
+    // </Modal>
     <Modal
       open={open}
       onClose={handleCloseModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Youtube Playlist
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Add a youtube playlist id or link
-        </Typography>
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="playistId"
-          name="playistId"
-          label="Playist Id"
-          type="text"
-          fullWidth
-          variant="standard"
-          onChange={(e) => handleChange(e)}
-        />
-        {showEmptyMessage && (
-          <Typography id="modal-modal-description" sx={{ color: "red" }}>
-            Please insert a playlist id or link
+      <Box
+        sx={{
+          backgroundColor: "white",
+          borderRadius: 2,
+          maxWidth: 400,
+          mx: "auto",
+          mt: 10,
+          overflow: "hidden", // to avoid overflow issues with rounded corners
+        }}
+      >
+        {/* Header */}
+        <Box
+          sx={{
+            backgroundColor: "purple",
+            color: "white",
+            padding: 2,
+            textAlign: "center",
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Youtube Playlist
           </Typography>
-        )}
-        {showErrorMessage && (
-          <Typography id="modal-modal-description" sx={{ color: "red" }}>
-            Please insert a valid playlist id or link
+        </Box>
+
+        {/* Modal Content */}
+        <Box sx={{ padding: 3 }}>
+          <Typography id="modal-modal-description">
+            Add a YouTube playlist ID or link
           </Typography>
-        )}
-        <Stack direction="row" spacing={2}>
-          <Button onClick={handleCloseModal}>Cancel</Button>
-          <Button type="submit" onClick={handleSubmit}>
-            Add
-          </Button>
-        </Stack>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="playlistId"
+            name="playlistId"
+            label="Playlist ID"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => handleChange(e)}
+            sx={{
+              input: { color: "purple" },
+              "& .MuiInputLabel-root": { color: "purple" },
+              "& .MuiInput-underline:before": { borderBottomColor: "purple" },
+              "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                borderBottomColor: "purple",
+              },
+              "& .MuiInput-underline:after": { borderBottomColor: "purple" },
+            }}
+          />
+          {showEmptyMessage && (
+            <Typography sx={{ color: "red" }}>
+              Please insert a playlist ID or link
+            </Typography>
+          )}
+          {showErrorMessage && (
+            <Typography sx={{ color: "red" }}>
+              Please insert a valid playlist ID or link
+            </Typography>
+          )}
+          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+            <Button
+              onClick={handleCloseModal}
+              sx={{
+                backgroundColor: "#c62828",
+                color: "white",
+                "&:hover": { backgroundColor: "#b71c1c" },
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              onClick={handleSubmit}
+              sx={{
+                backgroundColor: "#FFD700",
+                color: "white",
+                "&:hover": { backgroundColor: "#FFC300" },
+              }}
+            >
+              Add
+            </Button>
+          </Stack>
+        </Box>
       </Box>
     </Modal>
   );
