@@ -3,7 +3,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
-import { Button, Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { PlayCircleFilledOutlined } from "@mui/icons-material";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
@@ -85,28 +86,54 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
 
   return (
     <>
-      <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          overflow: "visible",
+        }}
+      >
         <CardMedia
           component="img"
-          height="194"
           image={playlistThumbnails?.url || DefaultImage}
           alt={playlistTitle}
+          sx={{
+            border: "3px solid purple",
+            borderTopLeftRadius: "5px",
+            borderTopRightRadius: "5px",
+          }}
         />
         <CardContent
           to={`VideoPlaylist/${playlistId}`}
           component={Link}
-          sx={{ textDecoration: "none" }}
+          sx={{
+            textDecoration: "none",
+            position: "absolute",
+            top: "80%",
+            left: "10px",
+            width: "92%",
+            borderTop: "3px solid gold",
+            backgroundColor: "#fff",
+          }}
           onMouseDown={() => handleRecent(playlist)}
         >
-          <Typography variant="h5">{playlistTitle}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            {channelTitle}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ({playlistItemNumber} videos)
-          </Typography>
+          <Typography variant="subtitle1">{playlistTitle}</Typography>
+          <Stack direction="row">
+            <Typography variant="body2" color="text.secondary">
+              {channelTitle}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ marginLeft: "auto" }}
+            >
+              ({playlistItemNumber} videos)
+            </Typography>
+          </Stack>
         </CardContent>
-        <Box sx={{ flexGrow: 1 }}>
+        {/* <Box sx={{ flexGrow: 1 }}>
           <CardActions disableSpacing>
             <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
               <Stack direction="row">
@@ -139,7 +166,7 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
               )}
             </Stack>
           </CardActions>
-        </Box>
+        </Box> */}
       </Card>
       {showErrorAlert && (
         <AlertBox

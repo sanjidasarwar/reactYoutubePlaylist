@@ -26,9 +26,9 @@ function HomeTab() {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "background.paper",
+        // bgcolor: "background.paper",Gt45312`
         display: "flex",
-        height: 224,
+        // height: 224,
       }}
     >
       <Tabs
@@ -40,18 +40,82 @@ function HomeTab() {
           borderRight: 1,
           borderColor: "divider",
           width: "15%",
+          backgroundColor: "#1A1B2F",
+          height: "100vh",
+          // padding: "20px",
+          color: "white",
+        }}
+        TabIndicatorProps={{
+          sx: {
+            backgroundColor: "gold",
+          },
         }}
       >
-        <Tab label="All" {...a11yProps(0)} sx={{ alignItems: "start" }} />
+        <Tab
+          label="All"
+          {...a11yProps(0)}
+          sx={{
+            alignItems: "start",
+            "&:hover": {
+              backgroundColor: "#38394f", // Lighter shade on hover
+            },
+            "&.Mui-selected": {
+              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              color: "gold",
+            },
+          }}
+        />
         <Tab
           label="Favourites"
           {...a11yProps(1)}
-          sx={{ alignItems: "start" }}
+          sx={{
+            alignItems: "start",
+            "&:hover": {
+              backgroundColor: "#38394f", // Lighter shade on hover
+            },
+            "&.Mui-selected": {
+              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              color: "gold",
+            },
+          }}
         />
-        <Tab label="Recent" {...a11yProps(2)} sx={{ alignItems: "start" }} />
-        <Tab label="My Choice" {...a11yProps(3)} sx={{ alignItems: "start" }} />
+        <Tab
+          label="Recent"
+          {...a11yProps(2)}
+          sx={{
+            alignItems: "start",
+            "&:hover": {
+              backgroundColor: "#38394f", // Lighter shade on hover
+            },
+            "&.Mui-selected": {
+              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              color: "gold",
+            },
+          }}
+        />
+        <Tab
+          label="My Choice"
+          {...a11yProps(3)}
+          sx={{
+            alignItems: "start",
+            "&:hover": {
+              backgroundColor: "#38394f", // Lighter shade on hover
+            },
+            "&.Mui-selected": {
+              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              color: "gold",
+            },
+          }}
+        />
       </Tabs>
-      <Box sx={{ width: "85%" }}>
+      <Box
+        sx={{
+          width: { xs: "70%", sm: "80%", md: "85%" }, // Adjusting based on screen size
+          backgroundColor: "#2C2C3E", // Content area background color
+          padding: 3,
+          color: "white",
+        }}
+      >
         <TabPanel value={value} index={0}>
           <AllPlaylists />
         </TabPanel>

@@ -28,29 +28,7 @@ function Home() {
 
   return (
     <>
-      {/* <Navbar
-        handleShowErrorAlert={handleShowErrorAlert}
-        handleShowSuccessAlert={handleShowSuccessAlert}
-      /> */}
-      <Container>
-        <HomeTab />
-        {/* {showErrorAlert && (
-          <AlertBox
-            type="error"
-            handleClose={handleCloseErrorAlert}
-            showAlert={showErrorAlert}
-            message="This playlist is already in your playlists."
-          />
-        )}
-        {showSucessAlert && (
-          <AlertBox
-            type="success"
-            handleClose={handleCloseSuccessAlert}
-            showAlert={showSucessAlert}
-            message="Successfully added in your playlists."
-          />
-        )} */}
-      </Container>
+      <HomeTab />
     </>
   );
 }
