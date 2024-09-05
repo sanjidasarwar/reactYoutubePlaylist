@@ -98,12 +98,14 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
           flexDirection: "column",
           backgroundImage: "none",
           backgroundColor: "transparent",
+          boxShadow: "none",
         }}
       >
         <CardMedia
           component="img"
           image={playlistThumbnails?.url || DefaultImage}
           alt={playlistTitle}
+          height="145px"
           sx={{
             border: "3px solid purple",
             borderTopLeftRadius: "5px",
