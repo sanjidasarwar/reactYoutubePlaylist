@@ -96,8 +96,8 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          position: "relative",
-          overflow: "visible",
+          backgroundImage: "none",
+          backgroundColor: "transparent",
         }}
       >
         <CardMedia
@@ -113,12 +113,13 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
         <CardContent
           sx={{
             textDecoration: "none",
-            position: "absolute",
-            top: "80%",
+            position: "relative",
+            top: "-40px",
             left: "10px",
-            width: "92%",
+            width: "calc(100% - 20px)",
             borderTop: "3px solid gold",
             backgroundColor: "#fff",
+            zIndex: 1,
             padding: "5px",
             color: "#000",
             "&:last-child": {
@@ -134,7 +135,7 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
                 display: "-webkit-box",
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
-                WebkitLineClamp: 2,
+                WebkitLineClamp: 1,
                 lineHeight: 1.2,
                 maxHeight: "2.4em",
                 textDecoration: "none",
