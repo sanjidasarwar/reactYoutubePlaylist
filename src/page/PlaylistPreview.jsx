@@ -64,41 +64,43 @@ function Playlist() {
     return <p>Loading...</p>;
   }
   return (
-    <Container sx={{ marginTop: "30px", marginBottom: "30px" }}>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
-          <Grid item xs={5}>
-            <img
-              src={playlistInfo.playlistThumbnails?.url || DefaultImg}
-              alt={playlistInfo.playlistTitle}
-              width="100%"
-              height="100%"
+    <Box
+      sx={{
+        flexGrow: 1,
+        marginTop: "30px",
+        marginBottom: "30px",
+        paddingLeft: "24px",
+        paddingRight: "24px",
+      }}
+    >
+      <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
+        <Grid item xs={5}>
+          <img
+            src={playlistInfo.playlistThumbnails?.url || DefaultImg}
+            alt={playlistInfo.playlistTitle}
+            width="100%"
+            height="100%"
+          />
+        </Grid>
+        <Grid item xs={7} height="300px" sx={{ overflowY: "scroll" }}>
+          {items.map((item) => (
+            <PlaylistItem
+              key={item.videoId}
+              playlistId={playlistId}
+              playlistItem={item}
+              channelTitle={channelName}
+              handleVideoChange={handleVideoChange}
+              deleteIcon={showDeleteIcon}
             />
-          </Grid>
-          <Grid item xs={7} height="300px" sx={{ overflowY: "scroll" }}>
-            {items.map((item, index) => (
-              <Stack key={item.videoId} direction="row" spacing={2}>
-                <Typography sx={{ alignSelf: "center" }}>
-                  {index + 1}.
-                </Typography>
-                <PlaylistItem
-                  playlistId={playlistId}
-                  playlistItem={item}
-                  channelTitle={channelName}
-                  handleVideoChange={handleVideoChange}
-                  deleteIcon={showDeleteIcon}
-                />
-              </Stack>
-            ))}
-          </Grid>
+          ))}
         </Grid>
-        <Grid container>
-          <Grid item xs={12}>
-            <MainPlaylistCard playlistInfo={playlistInfo} />
-          </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item xs={12} height="300px" sx={{ overflowY: "scroll" }}>
+          <MainPlaylistCard playlistInfo={playlistInfo} />
         </Grid>
-      </Box>
-    </Container>
+      </Grid>
+    </Box>
   );
 }
 

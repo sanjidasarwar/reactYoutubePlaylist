@@ -55,25 +55,38 @@ function VideoPlaylist() {
   }, [location.search]);
 
   return (
-    <Container>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
-            {videoId && <VideoPlayer videoId={videoId} />}
-          </Grid>
-          <Grid item xs={5}>
-            {items?.map((item) => (
-              <PlaylistItem
-                key={item.videoId}
-                playlistItem={item}
-                channelTitle={channelName}
-                handleVideoChange={handleVideoChange}
-              />
-            ))}
-          </Grid>
+    <Box
+      sx={{
+        flexGrow: 1,
+        marginTop: "30px",
+        marginBottom: "30px",
+        paddingLeft: "24px",
+        paddingRight: "24px",
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={7}>
+          {videoId && <VideoPlayer videoId={videoId} />}
         </Grid>
-      </Box>
-    </Container>
+        <Grid
+          item
+          xs={5}
+          sx={{
+            height: "calc(100vh - 100px)",
+            overflowY: "scroll",
+          }}
+        >
+          {items?.map((item) => (
+            <PlaylistItem
+              key={item.videoId}
+              playlistItem={item}
+              channelTitle={channelName}
+              handleVideoChange={handleVideoChange}
+            />
+          ))}
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 

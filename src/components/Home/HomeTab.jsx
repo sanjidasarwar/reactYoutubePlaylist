@@ -111,6 +111,8 @@ function HomeTab() {
           backgroundColor: "#2C2C3E", // Content area background color
           padding: 3,
           color: "white",
+          height: "100vh",
+          overflowY: "scroll",
         }}
       >
         <TabPanel value={value} index={0}>
