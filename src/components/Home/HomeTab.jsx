@@ -26,9 +26,7 @@ function HomeTab() {
     <Box
       sx={{
         flexGrow: 1,
-        // bgcolor: "background.paper",Gt45312`
         display: "flex",
-        // height: 224,
       }}
     >
       <Tabs
@@ -42,7 +40,6 @@ function HomeTab() {
           width: "15%",
           backgroundColor: "#1A1B2F",
           height: "100vh",
-          // padding: "20px",
           color: "white",
         }}
         TabIndicatorProps={{

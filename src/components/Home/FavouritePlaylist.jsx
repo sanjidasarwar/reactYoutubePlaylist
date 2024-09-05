@@ -15,7 +15,7 @@ function FavouritePlaylist() {
   return (
     <Grid container spacing={2} sx={{ marginTop: "20px" }}>
       {favourites?.map((listItem) => (
-        <Grid item xs={4} key={listItem.playlistId}>
+        <Grid item xs={3} key={listItem.playlistId}>
           <PlaylistCard
             playlist={listItem}
             deleteIcon={true}

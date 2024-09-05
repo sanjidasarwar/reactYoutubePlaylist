@@ -92,7 +92,7 @@ function CustomPlaylists() {
       </form>
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
         {playlistsArray?.map((listItem) => (
-          <Grid item xs={4} key={listItem.playlistId}>
+          <Grid item xs={3} key={listItem.playlistId}>
             <PlaylistCard
               playlist={listItem}
               favouriteIcon={true}

@@ -6,9 +6,12 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { PlayCircleFilledOutlined } from "@mui/icons-material";
-import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+// import { PlayCircleFilledOutlined } from "@mui/icons-material";
+import PlayCircleFilledWhiteOutlinedIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+// import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+// import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavourites } from "../../features/favourites/favouritesSlice";
@@ -17,6 +20,8 @@ import AlertBox from "../AlertBox";
 import DeleteAlertBox from "../DeleteAlertBox";
 import { addToRecent } from "../../features/recent/recentSlice";
 import DefaultImage from "../../assets/images/thumbnail.jpg";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
   const {
@@ -106,8 +111,6 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
           }}
         />
         <CardContent
-          to={`VideoPlaylist/${playlistId}`}
-          component={Link}
           sx={{
             textDecoration: "none",
             position: "absolute",
@@ -116,11 +119,33 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
             width: "92%",
             borderTop: "3px solid gold",
             backgroundColor: "#fff",
+            padding: "5px",
+            color: "#000",
+            "&:last-child": {
+              paddingBottom: "0px",
+            },
           }}
           onMouseDown={() => handleRecent(playlist)}
         >
-          <Typography variant="subtitle1">{playlistTitle}</Typography>
-          <Stack direction="row">
+          <Tooltip title={playlistTitle} arrow placement="top-start">
+            <Typography
+              variant="subtitle1"
+              sx={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                WebkitLineClamp: 2,
+                lineHeight: 1.2,
+                maxHeight: "2.4em",
+                textDecoration: "none",
+              }}
+              component={Link}
+              to={`PlaylistPreview/${playlistId}`}
+            >
+              {playlistTitle}
+            </Typography>
+          </Tooltip>
+          <Stack direction="row" sx={{ marginTop: 1, marginBottom: "5px" }}>
             <Typography variant="body2" color="text.secondary">
               {channelTitle}
             </Typography>
@@ -132,41 +157,69 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
               ({playlistItemNumber} videos)
             </Typography>
           </Stack>
-        </CardContent>
-        {/* <Box sx={{ flexGrow: 1 }}>
-          <CardActions disableSpacing>
-            <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
+
+          {/* <Box sx={{ flexGrow: 1 }}>
+            <CardActions disableSpacing>
+              <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
+                <Stack direction="row">
+                  <PlayCircleFilledOutlined color="primary" />
+                  <Typography
+                    variant="body2"
+                    color="primary"
+                    sx={{
+                      fontWeight: "bold",
+                      marginLeft: "5px",
+                      marginTop: "3px",
+                    }}
+                  >
+                    View Full Playlist
+                  </Typography>
+                </Stack>
+              </Button>
               <Stack direction="row">
-                <PlayCircleFilledOutlined color="primary" />
-                <Typography
-                  variant="body2"
-                  color="primary"
-                  sx={{
-                    fontWeight: "bold",
-                    marginLeft: "5px",
-                    marginTop: "3px",
-                  }}
-                >
-                  View Full Playlist
-                </Typography>
+                {favouriteIcon && (
+                  <FavoriteRoundedIcon
+                    color="success"
+                    onClick={() => handleAddToFavourite(playlist)}
+                  />
+                )}
+                {deleteIcon && (
+                  <RemoveCircleRoundedIcon
+                    color="error"
+                    onClick={showDeleteAlert}
+                  />
+                )}
               </Stack>
-            </Button>
-            <Stack direction="row">
-              {favouriteIcon && (
-                <FavoriteRoundedIcon
-                  color="success"
-                  onClick={() => handleAddToFavourite(playlist)}
-                />
-              )}
-              {deleteIcon && (
-                <RemoveCircleRoundedIcon
-                  color="error"
-                  onClick={showDeleteAlert}
-                />
-              )}
-            </Stack>
+            </CardActions>
+          </Box> */}
+          <CardActions
+            sx={{
+              justifyContent: "center",
+              borderTop: "2px solid #ddd",
+              padding: 0,
+            }}
+          >
+            <Tooltip title="View Full Playlist" placement="top" arrow>
+              <IconButton component={Link} to={`PlaylistPreview/${playlistId}`}>
+                <PlayCircleFilledWhiteOutlinedIcon color="warning" />
+              </IconButton>
+            </Tooltip>
+            {favouriteIcon && (
+              <Tooltip title="Add to Favourite" placement="top" arrow>
+                <IconButton onClick={() => handleAddToFavourite(playlist)}>
+                  <FavoriteBorderOutlinedIcon sx={{ color: "purple" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+            {deleteIcon && (
+              <Tooltip title="Remove Playlist" placement="top" arrow>
+                <IconButton onClick={showDeleteAlert}>
+                  <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />
+                </IconButton>
+              </Tooltip>
+            )}
           </CardActions>
-        </Box> */}
+        </CardContent>
       </Card>
       {showErrorAlert && (
         <AlertBox

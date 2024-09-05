@@ -31,6 +31,9 @@ const darkTheme = createTheme({
     background: {
       default: "#111422",
     },
+    text: {
+      secondary: "#8A89A6",
+    },
   },
 });
 
