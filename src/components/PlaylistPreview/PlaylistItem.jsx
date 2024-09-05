@@ -39,7 +39,7 @@ function PlaylistItem({
   };
   return (
     <>
-      <Box sx={{ display: "flex", marginBottom: "20px" }}>
+      <Box sx={{ display: "flex", marginBottom: "10px" }}>
         <img
           src={thumbnails}
           alt=""

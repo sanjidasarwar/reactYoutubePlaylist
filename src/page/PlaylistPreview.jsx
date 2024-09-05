@@ -8,6 +8,7 @@ import MainPlaylistCard from "../components/PlaylistPreview/MainPlaylistCard";
 import PlaylistItem from "../components/PlaylistPreview/PlaylistItem";
 import { useSelector } from "react-redux";
 import DefaultImg from "../assets/images/thumbnail.jpg";
+import { Stack, Typography } from "@mui/material";
 
 function Playlist() {
   const { playlistId } = useParams();
@@ -65,26 +66,29 @@ function Playlist() {
   return (
     <Container sx={{ marginTop: "30px", marginBottom: "30px" }}>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
           <Grid item xs={5}>
             <img
               src={playlistInfo.playlistThumbnails?.url || DefaultImg}
               alt={playlistInfo.playlistTitle}
               width="100%"
-              height="310px"
+              height="100%"
             />
-            {/* <MainPlaylistCard playlistInfo={playlistInfo} /> */}
           </Grid>
-          <Grid item xs={7} height="320px" sx={{ overflowY: "scroll" }}>
-            {items.map((item) => (
-              <PlaylistItem
-                playlistId={playlistId}
-                key={item.videoId}
-                playlistItem={item}
-                channelTitle={channelName}
-                handleVideoChange={handleVideoChange}
-                deleteIcon={showDeleteIcon}
-              />
+          <Grid item xs={7} height="300px" sx={{ overflowY: "scroll" }}>
+            {items.map((item, index) => (
+              <Stack key={item.videoId} direction="row" spacing={2}>
+                <Typography sx={{ alignSelf: "center" }}>
+                  {index + 1}.
+                </Typography>
+                <PlaylistItem
+                  playlistId={playlistId}
+                  playlistItem={item}
+                  channelTitle={channelName}
+                  handleVideoChange={handleVideoChange}
+                  deleteIcon={showDeleteIcon}
+                />
+              </Stack>
             ))}
           </Grid>
         </Grid>
