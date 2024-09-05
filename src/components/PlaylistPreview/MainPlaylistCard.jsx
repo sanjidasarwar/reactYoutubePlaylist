@@ -8,25 +8,13 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import DefaultImg from "../../assets/images/thumbnail.jpg";
 
 function MainPlaylistCard({ playlistInfo }) {
   const { playlistId } = useParams();
-  const {
-    playlistTitle,
-    channelTitle,
-    playlistThumbnails,
-    playlistDescription,
-  } = playlistInfo;
+  const { playlistTitle, channelTitle, playlistDescription } = playlistInfo;
 
   return (
-    <Card>
-      <CardMedia
-        component="img"
-        height="194"
-        image={playlistThumbnails?.url || DefaultImg}
-        alt={playlistTitle}
-      />
+    <Card sx={{ backgroundColor: "#1A1B2F", color: "white" }}>
       <CardContent>
         <Typography variant="h5">{playlistTitle}</Typography>
         {channelTitle && (
@@ -59,7 +47,9 @@ function MainPlaylistCard({ playlistInfo }) {
           </Button>
         </CardActions>
         {playlistDescription && (
-          <Typography variant="body2">{playlistDescription}</Typography>
+          <Typography variant="body2" sx={{ padding: "20px" }}>
+            {playlistDescription}
+          </Typography>
         )}
       </Box>
     </Card>

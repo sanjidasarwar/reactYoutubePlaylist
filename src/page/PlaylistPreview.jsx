@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import MainPlaylistCard from "../components/PlaylistPreview/MainPlaylistCard";
 import PlaylistItem from "../components/PlaylistPreview/PlaylistItem";
 import { useSelector } from "react-redux";
+import DefaultImg from "../assets/images/thumbnail.jpg";
 
 function Playlist() {
   const { playlistId } = useParams();
@@ -62,29 +63,38 @@ function Playlist() {
     return <p>Loading...</p>;
   }
   return (
-    <>
-      <Container>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={5}>
-              <MainPlaylistCard playlistInfo={playlistInfo} />
-            </Grid>
-            <Grid item xs={7}>
-              {items.map((item) => (
-                <PlaylistItem
-                  playlistId={playlistId}
-                  key={item.videoId}
-                  playlistItem={item}
-                  channelTitle={channelName}
-                  handleVideoChange={handleVideoChange}
-                  deleteIcon={showDeleteIcon}
-                />
-              ))}
-            </Grid>
+    <Container sx={{ marginTop: "30px", marginBottom: "30px" }}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={5}>
+            <img
+              src={playlistInfo.playlistThumbnails?.url || DefaultImg}
+              alt={playlistInfo.playlistTitle}
+              width="100%"
+              height="310px"
+            />
+            {/* <MainPlaylistCard playlistInfo={playlistInfo} /> */}
           </Grid>
-        </Box>
-      </Container>
-    </>
+          <Grid item xs={7} height="320px" sx={{ overflowY: "scroll" }}>
+            {items.map((item) => (
+              <PlaylistItem
+                playlistId={playlistId}
+                key={item.videoId}
+                playlistItem={item}
+                channelTitle={channelName}
+                handleVideoChange={handleVideoChange}
+                deleteIcon={showDeleteIcon}
+              />
+            ))}
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={12}>
+            <MainPlaylistCard playlistInfo={playlistInfo} />
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 }
 
