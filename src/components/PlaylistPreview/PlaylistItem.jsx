@@ -48,7 +48,13 @@ function PlaylistItem({
           style={{ cursor: "pointer" }}
           onClick={() => handleVideoChange(videoId)}
         />
-        <Box sx={{ marginLeft: "20px" }}>
+        <Box
+          sx={{
+            marginLeft: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Typography
             variant="body"
             sx={{ fontWeight: "bold", cursor: "pointer" }}
