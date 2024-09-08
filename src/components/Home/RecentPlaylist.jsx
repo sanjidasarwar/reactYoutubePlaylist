@@ -7,8 +7,8 @@ function RecentPlaylist() {
 
   return (
     <Grid container spacing={2} sx={{ marginTop: "20px" }}>
-      {recent?.map((listItem) => (
-        <Grid item xs={3} key={listItem.playlistId}>
+      {recent?.map((listItem, index) => (
+        <Grid item xs={3} key={`${listItem.playlistId}-${index}`}>
           <PlaylistCard playlist={listItem} deleteIcon={false} />
         </Grid>
       ))}

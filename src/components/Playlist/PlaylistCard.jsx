@@ -160,41 +160,6 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
               ({playlistItemNumber} videos)
             </Typography>
           </Stack>
-
-          {/* <Box sx={{ flexGrow: 1 }}>
-            <CardActions disableSpacing>
-              <Button to={`PlaylistPreview/${playlistId}`} component={Link}>
-                <Stack direction="row">
-                  <PlayCircleFilledOutlined color="primary" />
-                  <Typography
-                    variant="body2"
-                    color="primary"
-                    sx={{
-                      fontWeight: "bold",
-                      marginLeft: "5px",
-                      marginTop: "3px",
-                    }}
-                  >
-                    View Full Playlist
-                  </Typography>
-                </Stack>
-              </Button>
-              <Stack direction="row">
-                {favouriteIcon && (
-                  <FavoriteRoundedIcon
-                    color="success"
-                    onClick={() => handleAddToFavourite(playlist)}
-                  />
-                )}
-                {deleteIcon && (
-                  <RemoveCircleRoundedIcon
-                    color="error"
-                    onClick={showDeleteAlert}
-                  />
-                )}
-              </Stack>
-            </CardActions>
-          </Box> */}
           <CardActions
             sx={{
               justifyContent: "center",

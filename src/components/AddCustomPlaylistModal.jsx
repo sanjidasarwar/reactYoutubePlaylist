@@ -48,7 +48,6 @@ function AddCustomPlaylistModal() {
   };
   const handleSubmit = () => {
     dispatch(addPlaylistName(playlistName));
-    // setPlaylistName({});
     setShowSuccessAlert(true);
     handleCloseModal();
   };
