@@ -68,10 +68,10 @@ function CustomPlaylists() {
           id="videoLink"
           label="Video link"
           type="text"
-          variant="filled"
+          variant="standard"
           onChange={handleVideoChange}
         />
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard" sx={{ mx: 2, minWidth: 120 }}>
           <InputLabel id="demo-simple-select-standard-label">
             Playlist
           </InputLabel>
@@ -87,8 +87,19 @@ function CustomPlaylists() {
               </MenuItem>
             ))}
           </Select>
-          <Button type="submit">Add</Button>
         </FormControl>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            mt: 1,
+            backgroundColor: "gold",
+            color: "purple",
+            "&:hover": { backgroundColor: "gold", color: "white" },
+          }}
+        >
+          Add
+        </Button>
       </form>
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
         {playlistsArray?.map((listItem) => (
