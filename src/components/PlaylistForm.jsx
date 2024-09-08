@@ -126,10 +126,9 @@ export default function PlaylistForm({
           maxWidth: 400,
           mx: "auto",
           mt: 10,
-          overflow: "hidden", // to avoid overflow issues with rounded corners
+          overflow: "hidden",
         }}
       >
-        {/* Header */}
         <Box
           sx={{
             backgroundColor: "purple",
@@ -138,12 +137,16 @@ export default function PlaylistForm({
             textAlign: "center",
           }}
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            color="textSecondary"
+          >
             Youtube Playlist
           </Typography>
         </Box>
 
-        {/* Modal Content */}
         <Box sx={{ padding: 3 }}>
           <Typography id="modal-modal-description">
             Add a YouTube playlist ID or link

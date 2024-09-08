@@ -54,10 +54,10 @@ function HomeTab() {
           sx={{
             alignItems: "start",
             "&:hover": {
-              backgroundColor: "#38394f", // Lighter shade on hover
+              backgroundColor: "#38394f",
             },
             "&.Mui-selected": {
-              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              backgroundColor: "#4a4b6a",
               color: "gold",
             },
           }}
@@ -68,10 +68,10 @@ function HomeTab() {
           sx={{
             alignItems: "start",
             "&:hover": {
-              backgroundColor: "#38394f", // Lighter shade on hover
+              backgroundColor: "#38394f",
             },
             "&.Mui-selected": {
-              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              backgroundColor: "#4a4b6a",
               color: "gold",
             },
           }}
@@ -82,10 +82,10 @@ function HomeTab() {
           sx={{
             alignItems: "start",
             "&:hover": {
-              backgroundColor: "#38394f", // Lighter shade on hover
+              backgroundColor: "#38394f",
             },
             "&.Mui-selected": {
-              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              backgroundColor: "#4a4b6a",
               color: "gold",
             },
           }}
@@ -96,10 +96,10 @@ function HomeTab() {
           sx={{
             alignItems: "start",
             "&:hover": {
-              backgroundColor: "#38394f", // Lighter shade on hover
+              backgroundColor: "#38394f",
             },
             "&.Mui-selected": {
-              backgroundColor: "#4a4b6a", // Highlighted color when selected
+              backgroundColor: "#4a4b6a",
               color: "gold",
             },
           }}
@@ -107,8 +107,8 @@ function HomeTab() {
       </Tabs>
       <Box
         sx={{
-          width: { xs: "70%", sm: "80%", md: "85%" }, // Adjusting based on screen size
-          backgroundColor: "#2C2C3E", // Content area background color
+          width: { xs: "70%", sm: "80%", md: "85%" },
+          backgroundColor: "#2C2C3E",
           padding: 3,
           color: "white",
           height: "100vh",

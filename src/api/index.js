@@ -17,47 +17,56 @@ const getPlayListItem = async (playlistId, pageToken = "", result = []) => {
 };
 
 export const getPlayList = async (playlistId) => {
-  const { data } = await axios.get(
-    `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${key}`
-  );
-  const {
-    thumbnails,
-    channelTitle,
-    channelId,
-    title: playlistTitle,
-    description: playlistDescription,
-  } = data.items[0].snippet;
-
-  let playlistItems = await getPlayListItem(playlistId);
-
-  playlistItems = playlistItems.map((item) => {
-    const { id } = item;
+  try {
+    const { data } = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${key}`
+    );
     const {
-      title,
-      description,
-      thumbnails: { medium },
-    } = item.snippet;
+      thumbnails,
+      channelTitle,
+      channelId,
+      title: playlistTitle,
+      description: playlistDescription,
+    } = data.items[0].snippet;
+
+    let playlistItems = await getPlayListItem(playlistId);
+
+    playlistItems = playlistItems.map((item) => {
+      const { id } = item;
+      const {
+        title,
+        description,
+        thumbnails: { medium },
+      } = item.snippet;
+
+      return {
+        id,
+        title,
+        description,
+        thumbnails: medium.url,
+        contentDetails: item.contentDetails,
+        videoId: item.contentDetails.videoId,
+      };
+    });
 
     return {
-      id,
-      title,
-      description,
-      thumbnails: medium.url,
-      contentDetails: item.contentDetails,
-      videoId: item.contentDetails.videoId,
+      playlistId,
+      playlistTitle,
+      playlistDescription,
+      playlistThumbnails: thumbnails.medium,
+      channelTitle,
+      channelId,
+      playlistItems,
+      playlistItemNumber: playlistItems.length,
     };
-  });
-
-  return {
-    playlistId,
-    playlistTitle,
-    playlistDescription,
-    playlistThumbnails: thumbnails.medium,
-    channelTitle,
-    channelId,
-    playlistItems,
-    playlistItemNumber: playlistItems.length,
-  };
+  } catch (error) {
+    console.error("Error fetching playlist data:", error);
+    // Handle the error accordingly, e.g., return an error response or a default value
+    return {
+      error: true,
+      message: error.message,
+    };
+  }
 };
 
 // export const getYouTubeVideoId = (url) => {
