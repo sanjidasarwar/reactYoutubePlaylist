@@ -33,7 +33,7 @@ export const customPlaylistSlice = createSlice({
     addPlaylistName: (state, action) => {
       state.playlists[action.payload.playlistId] = {
         playlistId: action.payload.playlistId,
-        playlistTitle: action.payload.playistName,
+        playlistTitle: action.payload.playlistName,
         playlistItems: [],
       };
     },
