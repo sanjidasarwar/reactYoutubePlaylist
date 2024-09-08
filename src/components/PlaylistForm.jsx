@@ -47,72 +47,38 @@ export default function PlaylistForm({
     handleCloseErrorMessage();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!id) {
       handleShowEmptyMessage();
-    } else {
-      if (playlists[id]) {
-        handleShowErrorAlert();
-        handleCloseModal();
-      } else {
-        dispatch(fetchPlaylists(id));
-        if (!showErrorMessage) {
-          handleShowErrorMessage();
-          return;
-        } else {
-          setId("");
-          handleCloseModal();
-          handleShowSuccessAlert();
-        }
+      return;
+    }
+
+    if (playlists[id]) {
+      handleShowErrorAlert();
+      handleCloseModal();
+      return;
+    }
+
+    try {
+      const fetchedPlaylist = await dispatch(fetchPlaylists(id));
+
+      if (fetchedPlaylist.error) {
+        handleShowErrorMessage();
+        return;
       }
+
+      setId("");
+      handleCloseModal();
+      handleShowSuccessAlert();
+    } catch (error) {
+      console.error("An error occurred while fetching the playlist:", error);
+      handleShowErrorMessage();
     }
   };
 
   return (
-    // <Modal
-    //   open={open}
-    //   onClose={handleCloseModal}
-    //   aria-labelledby="modal-modal-title"
-    //   aria-describedby="modal-modal-description"
-    // >
-    //   <Box sx={style}>
-    //     <Typography id="modal-modal-title" variant="h6" component="h2">
-    //       Youtube Playlist
-    //     </Typography>
-    //     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-    //       Add a youtube playlist id or link
-    //     </Typography>
-    //     <TextField
-    //       autoFocus
-    //       required
-    //       margin="dense"
-    //       id="playistId"
-    //       name="playistId"
-    //       label="Playist Id"
-    //       type="text"
-    //       fullWidth
-    //       variant="standard"
-    //       onChange={(e) => handleChange(e)}
-    //     />
-    //     {showEmptyMessage && (
-    //       <Typography id="modal-modal-description" sx={{ color: "red" }}>
-    //         Please insert a playlist id or link
-    //       </Typography>
-    //     )}
-    //     {showErrorMessage && (
-    //       <Typography id="modal-modal-description" sx={{ color: "red" }}>
-    //         Please insert a valid playlist id or link
-    //       </Typography>
-    //     )}
-    //     <Stack direction="row" spacing={2}>
-    //       <Button onClick={handleCloseModal}>Cancel</Button>
-    //       <Button type="submit" onClick={handleSubmit}>
-    //         Add
-    //       </Button>
-    //     </Stack>
-    //   </Box>
-    // </Modal>
     <Modal
       open={open}
       onClose={handleCloseModal}
