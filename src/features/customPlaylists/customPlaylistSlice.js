@@ -35,6 +35,7 @@ export const customPlaylistSlice = createSlice({
         playlistId: action.payload.playlistId,
         playlistTitle: action.payload.playlistName,
         playlistItems: [],
+        playlistItemNumber: 0,
       };
     },
     removeCustomPlaylist: (state, action) => {
@@ -60,11 +61,13 @@ export const customPlaylistSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchCustomPlaylist.fulfilled, (state, action) => {
-      state.isLoading = true;
+      state.isLoading = false;
 
       state.playlists[action.payload.playlistId].playlistItems.push(
         action.payload.customPlaylist
       );
+      state.playlists[action.payload.playlistId].playlistItemNumber =
+        state.playlists[action.payload.playlistId].playlistItems.length;
       storage.save(STORAGE_KEY, state);
     });
     builder.addCase(fetchCustomPlaylist.rejected, (state, action) => {

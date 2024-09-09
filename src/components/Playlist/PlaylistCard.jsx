@@ -168,7 +168,7 @@ function PlaylistCard({ playlist, favouriteIcon, deleteIcon, handledelete }) {
             }}
           >
             <Tooltip title="View Full Playlist" placement="top" arrow>
-              <IconButton component={Link} to={`PlaylistPreview/${playlistId}`}>
+              <IconButton component={Link} to={`VideoPlaylist/${playlistId}`}>
                 <PlayCircleFilledWhiteOutlinedIcon color="warning" />
               </IconButton>
             </Tooltip>

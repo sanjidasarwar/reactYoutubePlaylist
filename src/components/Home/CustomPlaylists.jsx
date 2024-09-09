@@ -44,18 +44,19 @@ function CustomPlaylists() {
     );
 
     if (hasInPlaylsit) {
-      alert("error");
-    } else {
-      dispatch(
-        fetchCustomPlaylist({
-          playlistId: selecedPlaylist,
-          videoId: selecedVideoId,
-        })
-      );
-      alert("success");
-      setSelectedVideoId("");
-      setSelectedPlaylist("");
+      alert("You already added the video");
+      return;
     }
+
+    dispatch(
+      fetchCustomPlaylist({
+        playlistId: selecedPlaylist,
+        videoId: selecedVideoId,
+      })
+    );
+    alert("successfully added the video");
+    setSelectedVideoId("");
+    setSelectedPlaylist("");
   };
 
   const handlePlaylistdelete = (id) => {
