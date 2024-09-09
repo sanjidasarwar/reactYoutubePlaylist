@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPlaylistName } from "../features/customPlaylists/customPlaylistSlice";
 import AlertBox from "../components/AlertBox";
 import ShortUniqueId from "short-unique-id";
@@ -26,10 +26,12 @@ const style = {
 
 function AddCustomPlaylistModal() {
   const [open, setOpen] = useState(false);
-  const [playlistName, setPlaylistName] = useState({});
+  const [playlistNameObj, setPlaylistNameObj] = useState({});
   const [showSucessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const dispatch = useDispatch();
+  const { playlists } = useSelector((state) => state.customPlaylists);
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -37,19 +39,37 @@ function AddCustomPlaylistModal() {
 
   const handleCloseModal = () => {
     setOpen(false);
-    setShowSuccessAlert(false);
   };
 
   const handleChange = (e) => {
-    setPlaylistName({
+    setPlaylistNameObj({
       [e.target.name]: e.target.value,
       playlistId: uid.rnd(),
     });
   };
   const handleSubmit = () => {
-    dispatch(addPlaylistName(playlistName));
+    console.log(Object.values(playlists));
+    console.log(playlistNameObj.playlistName);
+
+    const isDuplicate = Object.values(playlists).some(
+      (playlist) => playlist.playlistTitle === playlistNameObj.playlistName
+    );
+
+    if (isDuplicate) {
+      setShowErrorAlert(true);
+      return;
+    }
+
+    dispatch(addPlaylistName(playlistNameObj));
     setShowSuccessAlert(true);
     handleCloseModal();
+  };
+
+  const handleCloseErrorAlert = () => {
+    setShowErrorAlert(false);
+  };
+  const handleCloseSuccessAlert = () => {
+    setShowSuccessAlert(false);
   };
 
   return (
@@ -149,10 +169,18 @@ function AddCustomPlaylistModal() {
         </Box>
       </Modal>
 
+      {showErrorAlert && (
+        <AlertBox
+          type="error"
+          handleClose={handleCloseErrorAlert}
+          showAlert={showErrorAlert}
+          message="Playlist name already exists. Please choose a different name."
+        />
+      )}
       {showSucessAlert && (
         <AlertBox
           type="success"
-          handleClose={setShowSuccessAlert(false)}
+          handleClose={handleCloseSuccessAlert}
           showAlert={showSucessAlert}
           message="Successfully added in your playlists."
         />
