@@ -7,11 +7,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import AlertBox from "../AlertBox";
 import { useEffect, useState } from "react";
 import {
   fetchCustomPlaylist,
   removeCustomPlaylist,
 } from "../../features/customPlaylists/customPlaylistSlice";
+import { Typography } from "@mui/material";
 
 function CustomPlaylists() {
   const { playlists } = useSelector((state) => state.customPlaylists);
@@ -19,16 +21,21 @@ function CustomPlaylists() {
   const playlistsIdArray = Object.keys(playlists);
 
   const [selecedPlaylist, setSelectedPlaylist] = useState("");
-  const [selecedVideoId, setSelectedVideoId] = useState("");
+  const [selectedVideoId, setSelectedVideoId] = useState("");
+  const [showSucessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showHelper, setShowHelper] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleVideoChange = (e) => {
     const url = e.target.value;
+
     const regex =
       /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)|youtu\.be\/([^&]+)/;
     const matches = url.match(regex);
     const id = matches ? matches[1] || matches[2] : null;
+
     setSelectedVideoId(id);
   };
 
@@ -36,31 +43,59 @@ function CustomPlaylists() {
     setSelectedPlaylist(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const hasInPlaylsit = playlists[selecedPlaylist].playlistItems.some(
-      (item) => item.videoId === selecedVideoId
+      (item) => item.videoId === selectedVideoId
     );
 
     if (hasInPlaylsit) {
-      alert("You already added the video");
+      setShowErrorAlert(true);
       return;
     }
 
-    dispatch(
-      fetchCustomPlaylist({
-        playlistId: selecedPlaylist,
-        videoId: selecedVideoId,
-      })
-    );
-    alert("successfully added the video");
-    setSelectedVideoId("");
-    setSelectedPlaylist("");
+    try {
+      const fetchedPlaylist = await dispatch(
+        fetchCustomPlaylist({
+          playlistId: selecedPlaylist,
+          videoId: selectedVideoId,
+        })
+      );
+
+      if (fetchedPlaylist.error) {
+        setShowHelper(true);
+        return;
+      }
+
+      setShowSuccessAlert(true);
+      setSelectedVideoId("");
+      setSelectedPlaylist("");
+    } catch (error) {
+      console.error("An error occurred while fetching the playlist:", error);
+      setShowHelper(true);
+    }
+
+    // dispatch(
+    //   fetchCustomPlaylist({
+    //     playlistId: selecedPlaylist,
+    //     videoId: selectedVideoId,
+    //   })
+    // );
+    // setShowSuccessAlert(true);
+    // setSelectedVideoId("");
+    // setSelectedPlaylist("");
   };
 
   const handlePlaylistdelete = (id) => {
     dispatch(removeCustomPlaylist(id));
+  };
+
+  const handleCloseErrorAlert = () => {
+    setShowErrorAlert(false);
+  };
+  const handleCloseSuccessAlert = () => {
+    setShowSuccessAlert(false);
   };
   return (
     <>
@@ -102,6 +137,11 @@ function CustomPlaylists() {
           Add
         </Button>
       </form>
+      {showHelper && (
+        <Typography sx={{ color: "red" }}>
+          Please Enter a vlaid video link
+        </Typography>
+      )}
       <Grid container spacing={2} sx={{ marginTop: "20px" }}>
         {playlistsArray?.map((listItem) => (
           <Grid item xs={3} key={listItem.playlistId}>
@@ -114,6 +154,23 @@ function CustomPlaylists() {
           </Grid>
         ))}
       </Grid>
+
+      {showErrorAlert && (
+        <AlertBox
+          type="error"
+          handleClose={handleCloseErrorAlert}
+          showAlert={showErrorAlert}
+          message="This video is already in your playlists."
+        />
+      )}
+      {showSucessAlert && (
+        <AlertBox
+          type="success"
+          handleClose={handleCloseSuccessAlert}
+          showAlert={showSucessAlert}
+          message="Successfully added in your playlists."
+        />
+      )}
     </>
   );
 }

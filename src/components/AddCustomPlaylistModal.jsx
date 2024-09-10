@@ -48,9 +48,6 @@ function AddCustomPlaylistModal() {
     });
   };
   const handleSubmit = () => {
-    console.log(Object.values(playlists));
-    console.log(playlistNameObj.playlistName);
-
     const isDuplicate = Object.values(playlists).some(
       (playlist) => playlist.playlistTitle === playlistNameObj.playlistName
     );

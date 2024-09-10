@@ -16,6 +16,10 @@ export const fetchCustomPlaylist = createAsyncThunk(
   async (payload) => {
     const customPlaylist = await getVideoDetails(payload.videoId);
     const playlistId = payload.playlistId;
+    if (customPlaylist === null) {
+      throw new Error("No video data found");
+    }
+    console.log(customPlaylist);
 
     return {
       customPlaylist,
