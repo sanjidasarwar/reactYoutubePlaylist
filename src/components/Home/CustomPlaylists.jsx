@@ -75,16 +75,6 @@ function CustomPlaylists() {
       console.error("An error occurred while fetching the playlist:", error);
       setShowHelper(true);
     }
-
-    // dispatch(
-    //   fetchCustomPlaylist({
-    //     playlistId: selecedPlaylist,
-    //     videoId: selectedVideoId,
-    //   })
-    // );
-    // setShowSuccessAlert(true);
-    // setSelectedVideoId("");
-    // setSelectedPlaylist("");
   };
 
   const handlePlaylistdelete = (id) => {
@@ -138,7 +128,7 @@ function CustomPlaylists() {
         </Button>
       </form>
       {showHelper && (
-        <Typography sx={{ color: "red" }}>
+        <Typography sx={{ color: "red", mt: 1 }}>
           Please Enter a vlaid video link
         </Typography>
       )}
