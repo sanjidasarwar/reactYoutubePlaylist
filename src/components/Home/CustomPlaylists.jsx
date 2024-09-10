@@ -13,6 +13,8 @@ import {
   fetchCustomPlaylist,
   removeCustomPlaylist,
 } from "../../features/customPlaylists/customPlaylistSlice";
+import { removeFromFavourites } from "../../features/favourites/favouritesSlice";
+import { removeFromRecent } from "../../features/recent/recentSlice";
 import { Typography } from "@mui/material";
 
 function CustomPlaylists() {
@@ -79,6 +81,8 @@ function CustomPlaylists() {
 
   const handlePlaylistdelete = (id) => {
     dispatch(removeCustomPlaylist(id));
+    dispatch(removeFromFavourites(id));
+    dispatch(removeFromRecent(id));
   };
 
   const handleCloseErrorAlert = () => {
