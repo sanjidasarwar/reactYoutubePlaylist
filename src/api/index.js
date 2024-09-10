@@ -78,7 +78,6 @@ export const getVideoDetails = async (videoId) => {
       thumbnails: thumbnailUrl,
     };
   } catch (error) {
-    console.error("Error fetching video details:", error);
     return null;
   }
 };

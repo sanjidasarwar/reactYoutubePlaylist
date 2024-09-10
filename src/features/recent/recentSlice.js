@@ -18,8 +18,14 @@ export const recentSlice = createSlice({
       state.recent = state.recent.slice(0, 5);
       storage.save(STORAGE_KEY, state);
     },
+    removeFromRecent: (state, action) => {
+      state.recent = state.recent.filter(
+        (item) => item.playlistId !== action.payload
+      );
+      storage.save(STORAGE_KEY, state);
+    },
   },
 });
 
-export const { addToRecent } = recentSlice.actions;
+export const { addToRecent, removeFromRecent } = recentSlice.actions;
 export default recentSlice.reducer;

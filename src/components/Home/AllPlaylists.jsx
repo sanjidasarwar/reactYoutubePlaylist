@@ -2,6 +2,8 @@ import Grid from "@mui/material/Grid";
 import PlaylistCard from "../Playlist/PlaylistCard";
 import { useDispatch, useSelector } from "react-redux";
 import { removePlaylist } from "../../features/playlists/playlistsSlice";
+import { removeFromFavourites } from "../../features/favourites/favouritesSlice";
+import { removeFromRecent } from "../../features/recent/recentSlice";
 
 function AllPlaylists() {
   const { playlists } = useSelector((state) => state.allPlaylistsData);
@@ -12,6 +14,8 @@ function AllPlaylists() {
 
   const handlePlaylistdelete = (id) => {
     dispatch(removePlaylist(id));
+    dispatch(removeFromFavourites(id));
+    dispatch(removeFromRecent(id));
   };
 
   return (
