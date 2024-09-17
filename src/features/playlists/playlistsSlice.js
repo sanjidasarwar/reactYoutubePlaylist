@@ -32,6 +32,13 @@ export const playlistsSlice = createSlice({
     clearError: (state) => {
       state.isError = false;
     },
+    addVideoTime: (state, action) => {
+      state.playlists[action.payload.playlistId].playlistItems.map((item) => {
+        if (item.videoId === action.payload.videoId) {
+          item.videoPausTime = action.payload.videoPauseTime;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPlaylists.pending, (state) => {
@@ -51,6 +58,7 @@ export const playlistsSlice = createSlice({
   },
 });
 
-export const { removePlaylist, clearError } = playlistsSlice.actions;
+export const { removePlaylist, clearError, addVideoTime } =
+  playlistsSlice.actions;
 
 export default playlistsSlice.reducer;
