@@ -21,6 +21,7 @@ function VideoPlaylist() {
   const [channelName, setChannelName] = useState("");
   const [playlistType, setPlaylistType] = useState("");
   const [videoTime, setVideoTime] = useState(0);
+  const [videoPauseTime, setVideoPauseTime] = useState(0);
 
   const { playlists } = useSelector((state) => state.allPlaylistsData);
   const { playlists: customPlaylists } = useSelector(
@@ -35,17 +36,27 @@ function VideoPlaylist() {
         addYoutubePlaylistVideoTime({
           playlistId: playlistId,
           videoId: videoId,
-          videoPauseTime: videoTime,
+          videoTime,
         })
       );
+      playlists[playlistId].playlistItems.map((item) => {
+        if (item.videoId === newVideoId) {
+          setVideoPauseTime(item.videoTime);
+        }
+      });
     } else if (playlistType === "custom-Playlist") {
       dispatch(
         addCustomPlaylistVideoTime({
           playlistId: playlistId,
           videoId: videoId,
-          videoPauseTime: videoTime,
+          videoTime,
         })
       );
+      customPlaylists[playlistId].playlistItems.map((item) => {
+        if (item.videoId === newVideoId) {
+          setVideoPauseTime(item.videoTime);
+        }
+      });
     }
     navigate(`${location.pathname}?videoId=${newVideoId}`);
     setVideoId(newVideoId);
@@ -93,7 +104,11 @@ function VideoPlaylist() {
       <Grid container spacing={2}>
         <Grid item xs={7}>
           {videoId && (
-            <VideoPlayer videoId={videoId} handleVideoTime={handleVideoTime} />
+            <VideoPlayer
+              videoId={videoId}
+              handleVideoTime={handleVideoTime}
+              videoPauseTime={videoPauseTime}
+            />
           )}
         </Grid>
         <Grid

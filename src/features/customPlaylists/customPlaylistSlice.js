@@ -58,11 +58,15 @@ export const customPlaylistSlice = createSlice({
       storage.save(STORAGE_KEY, state);
     },
     addVideoTime: (state, action) => {
-      state.playlists[action.payload.playlistId].playlistItems.map((item) => {
-        if (item.videoId === action.payload.videoId) {
-          item.videoPausTime = action.payload.videoPauseTime;
-        }
-      });
+      const { playlistId, videoId, videoTime } = action.payload;
+      if (state.playlists[playlistId]) {
+        state.playlists[playlistId].playlistItems = state.playlists[
+          playlistId
+        ].playlistItems.map((item) =>
+          item.videoId === videoId ? { ...item, videoTime } : item
+        );
+      }
+      storage.save(STORAGE_KEY, state);
     },
   },
   extraReducers: (builder) => {

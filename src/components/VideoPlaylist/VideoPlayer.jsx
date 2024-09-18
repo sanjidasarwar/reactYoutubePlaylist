@@ -1,11 +1,12 @@
 import YouTube from "react-youtube";
 
-function VideoPlayer({ videoId, handleVideoTime }) {
+function VideoPlayer({ videoId, handleVideoTime, videoPauseTime = 0 }) {
   const opts = {
     height: "390",
     width: "640",
     playerVars: {
       autoplay: 1,
+      start: videoPauseTime,
     },
   };
 
