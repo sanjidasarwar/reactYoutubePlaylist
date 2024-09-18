@@ -1,4 +1,4 @@
-import { Card } from "@mui/material";
+import { Card, Stack } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { removePlaylistItem } from "../../features/customPlaylists/customPlaylistSlice";
@@ -21,6 +22,7 @@ function PlaylistItem({
   channelTitle,
   handleVideoChange,
   deleteIcon,
+  isActive,
 }) {
   const { thumbnails, title, videoId } = playlistItem;
   const [deleteAlert, setDeleteAlert] = useState(false);
@@ -38,8 +40,21 @@ function PlaylistItem({
     dispatch(removePlaylistItem({ playlistId: playlistId, videoId: videoId }));
   };
   return (
-    <>
-      <Box sx={{ display: "flex", marginBottom: "10px" }}>
+    <Stack direction="row" spacing={1} sx={{ marginBottom: "10px" }}>
+      <ArrowRightIcon
+        sx={{
+          color: isActive ? "gold" : "transparent",
+          fontSize: "40px",
+          alignSelf: "center",
+        }}
+      />
+      <Box
+        sx={{
+          display: "flex",
+          marginBottom: "10px",
+          boxShadow: isActive ? "2px 2px 3px #000" : "inherit",
+        }}
+      >
         <img
           src={thumbnails}
           alt=""
@@ -87,7 +102,7 @@ function PlaylistItem({
           </DialogActions>
         </Dialog>
       )}
-    </>
+    </Stack>
   );
 }
 

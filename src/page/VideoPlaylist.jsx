@@ -151,6 +151,7 @@ function VideoPlaylist() {
               playlistItem={item}
               channelTitle={channelName}
               handleVideoChange={handleVideoChange}
+              isActive={item.videoId === videoId}
             />
           ))}
         </Grid>
