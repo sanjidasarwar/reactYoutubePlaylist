@@ -34,12 +34,21 @@ export const playlistsSlice = createSlice({
     },
     addVideoTime: (state, action) => {
       const { playlistId, videoId, videoTime } = action.payload;
+      // if (state.playlists[playlistId]) {
+      //   state.playlists[playlistId].playlistItems = state.playlists[
+      //     playlistId].playlistItems.map((item) =>
+      //     item.videoId === videoId ? { ...item, videoTime } : item
+      //   );
+      // }
+
       if (state.playlists[playlistId]) {
-        state.playlists[playlistId].playlistItems = state.playlists[
-          playlistId
-        ].playlistItems.map((item) =>
-          item.videoId === videoId ? { ...item, videoTime } : item
+        const item = state.playlists[playlistId].playlistItems.find(
+          (item) => item.videoId === videoId
         );
+
+        if (item) {
+          item.videoTime = videoTime;
+        }
       }
       storage.save(STORAGE_KEY, state);
     },
