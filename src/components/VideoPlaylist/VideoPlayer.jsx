@@ -12,7 +12,13 @@ function VideoPlayer({ videoId, handleVideoTime, videoPauseTime = 0 }) {
 
   const handleStateChange = (e) => {
     const pausedTime = e.target.getCurrentTime();
-    handleVideoTime(pausedTime);
+    const totalDuration = e.target.getDuration();
+
+    if (totalDuration - pausedTime <= 120) {
+      handleVideoTime(0);
+    } else {
+      handleVideoTime(pausedTime);
+    }
   };
 
   return (
