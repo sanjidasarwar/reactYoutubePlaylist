@@ -30,20 +30,33 @@ function VideoPlaylist() {
 
   const dispatch = useDispatch();
 
+  const updateVideoPauseTIme = (playlist, videoId) => {
+    // playlist.playlistItems.map((item) => {
+    //   if (item.videoId === videoId) {
+    //     setVideoPauseTime(item.videoTime);
+    //   }
+    // });
+    const pausedItem = playlist.playlistItems.find(
+      (item) => item.videoId === videoId
+    );
+    setVideoPauseTime(pausedItem ? pausedItem.videoTime : 0);
+  };
+
   const handleVideoChange = (newVideoId) => {
     if (playlistType === "youtube-Playlist") {
       dispatch(
         addYoutubePlaylistVideoTime({
-          playlistId: playlistId,
-          videoId: videoId,
+          playlistId,
+          videoId,
           videoTime,
         })
       );
-      playlists[playlistId].playlistItems.map((item) => {
-        if (item.videoId === newVideoId) {
-          setVideoPauseTime(item.videoTime);
-        }
-      });
+      updateVideoPauseTIme(playlists[playlistId], newVideoId);
+      // playlists[playlistId].playlistItems.map((item) => {
+      //   if (item.videoId === newVideoId) {
+      //     setVideoPauseTime(item.videoTime);
+      //   }
+      // });
     } else if (playlistType === "custom-Playlist") {
       dispatch(
         addCustomPlaylistVideoTime({
@@ -52,11 +65,13 @@ function VideoPlaylist() {
           videoTime,
         })
       );
-      customPlaylists[playlistId].playlistItems.map((item) => {
-        if (item.videoId === newVideoId) {
-          setVideoPauseTime(item.videoTime);
-        }
-      });
+      updateVideoPauseTIme(customPlaylists[playlistId], newVideoId);
+
+      // customPlaylists[playlistId].playlistItems.map((item) => {
+      //   if (item.videoId === newVideoId) {
+      //     setVideoPauseTime(item.videoTime);
+      //   }
+      // });
     }
     navigate(`${location.pathname}?videoId=${newVideoId}`);
     setVideoId(newVideoId);
@@ -67,20 +82,31 @@ function VideoPlaylist() {
   };
 
   useEffect(() => {
-    if (playlists[playlistId]) {
-      const playlistItems = playlists[playlistId].playlistItems;
-      const { channelTitle: channelName } = playlists[playlistId];
-
-      setVideoId(playlists[playlistId].playlistItems[0].videoId);
+    const selectedPlaylists =
+      playlists[playlistId] || customPlaylists[playlistId];
+    if (selectedPlaylists) {
+      const playlistItems = selectedPlaylists.playlistItems;
       setItems(playlistItems);
-      setChannelName(channelName);
-      setPlaylistType("youtube-Playlist");
-    } else if (customPlaylists[playlistId]) {
-      setVideoId(customPlaylists[playlistId].playlistItems[0].videoId);
-      const playlistItems = customPlaylists[playlistId].playlistItems;
-      setItems(playlistItems);
-      setPlaylistType("custom-Playlist");
+      setVideoId(playlistItems[0].videoId);
+      setChannelName(selectedPlaylists.channelTitle || "");
+      setPlaylistType(
+        playlists[playlistId] ? "youtube-Playlist" : "custom-Playlist"
+      );
     }
+    // if (playlists[playlistId]) {
+    //   const playlistItems = playlists[playlistId].playlistItems;
+    //   const { channelTitle: channelName } = playlists[playlistId];
+
+    //   setVideoId(playlists[playlistId].playlistItems[0].videoId);
+    //   setItems(playlistItems);
+    //   setChannelName(channelName);
+    //   setPlaylistType("youtube-Playlist");
+    // } else if (customPlaylists[playlistId]) {
+    //   setVideoId(customPlaylists[playlistId].playlistItems[0].videoId);
+    //   const playlistItems = customPlaylists[playlistId].playlistItems;
+    //   setItems(playlistItems);
+    //   setPlaylistType("custom-Playlist");
+    // }
   }, [playlists, customPlaylists, playlistId]);
 
   useEffect(() => {
