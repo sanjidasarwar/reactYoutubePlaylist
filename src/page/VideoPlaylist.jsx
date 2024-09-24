@@ -1,15 +1,18 @@
 import usePlaylists from "../hooks/usePlaylists";
 import { useEffect, useState } from "react";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import PlaylistItem from "../components/PlaylistPreview/PlaylistItem";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useAsyncError } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlaylist/VideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addVideoTime as addYoutubePlaylistVideoTime } from "../features/playlists/playlistsSlice";
 import { addVideoTime as addCustomPlaylistVideoTime } from "../features/customPlaylists/customPlaylistSlice";
+import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
+import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 
 function VideoPlaylist() {
   const { playlistId } = useParams();
@@ -17,11 +20,15 @@ function VideoPlaylist() {
   const navigate = useNavigate();
 
   const [videoId, setVideoId] = useState("");
-  const [items, setItems] = useState(null);
+  const [allItems, setItems] = useState(null);
   const [channelName, setChannelName] = useState("");
   const [playlistType, setPlaylistType] = useState("");
   const [videoTime, setVideoTime] = useState(0);
   const [videoPauseTime, setVideoPauseTime] = useState(0);
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const totalVideos = allItems ? allItems.length : 0;
+  const currentVideoIndex =
+    allItems?.findIndex((item) => item.videoId === videoId) + 1;
 
   const { playlists } = useSelector((state) => state.allPlaylistsData);
   const { playlists: customPlaylists } = useSelector(
@@ -30,7 +37,7 @@ function VideoPlaylist() {
 
   const dispatch = useDispatch();
 
-  const updateVideoPauseTIme = (playlist, videoId) => {
+  const updateVideoPauseTime = (playlist, videoId) => {
     // playlist.playlistItems.map((item) => {
     //   if (item.videoId === videoId) {
     //     setVideoPauseTime(item.videoTime);
@@ -51,7 +58,7 @@ function VideoPlaylist() {
           videoTime,
         })
       );
-      updateVideoPauseTIme(playlists[playlistId], newVideoId);
+      updateVideoPauseTime(playlists[playlistId], newVideoId);
       // playlists[playlistId].playlistItems.map((item) => {
       //   if (item.videoId === newVideoId) {
       //     setVideoPauseTime(item.videoTime);
@@ -65,7 +72,7 @@ function VideoPlaylist() {
           videoTime,
         })
       );
-      updateVideoPauseTIme(customPlaylists[playlistId], newVideoId);
+      updateVideoPauseTime(customPlaylists[playlistId], newVideoId);
 
       // customPlaylists[playlistId].playlistItems.map((item) => {
       //   if (item.videoId === newVideoId) {
@@ -120,15 +127,40 @@ function VideoPlaylist() {
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        // flexGrow: 1,
         marginTop: "30px",
         marginBottom: "30px",
         paddingLeft: "24px",
         paddingRight: "24px",
       }}
     >
+      <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
+        <Grid
+          item
+          size={{ xs: "grow", md: 6 }}
+          offset={{ md: 10 }}
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <Typography>
+            Playing {currentVideoIndex}/{totalVideos}
+          </Typography>
+          {/* <Button variant="contained" sx={{ mt: 2 }}> */}
+          {showPlaylist ? (
+            <PlaylistRemoveIcon
+              onClick={() => setShowPlaylist(false)}
+              sx={{ cursor: "pointer" }}
+            />
+          ) : (
+            <PlaylistPlayIcon
+              onClick={() => setShowPlaylist(true)}
+              sx={{ cursor: "pointer" }}
+            />
+          )}
+          {/* </Button> */}
+        </Grid>
+      </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={7}>
+        <Grid item size={showPlaylist ? 7 : 12}>
           {videoId && (
             <VideoPlayer
               videoId={videoId}
@@ -137,24 +169,27 @@ function VideoPlaylist() {
             />
           )}
         </Grid>
-        <Grid
-          item
-          xs={5}
-          sx={{
-            height: "calc(100vh - 100px)",
-            overflowY: "scroll",
-          }}
-        >
-          {items?.map((item) => (
-            <PlaylistItem
-              key={item.videoId}
-              playlistItem={item}
-              channelTitle={channelName}
-              handleVideoChange={handleVideoChange}
-              isActive={item.videoId === videoId}
-            />
-          ))}
-        </Grid>
+        {showPlaylist && (
+          <Grid
+            item
+            size={5}
+            sx={{
+              height: "calc(100vh - 100px)",
+              overflowY: "scroll",
+            }}
+          >
+            {allItems?.map((item, index) => (
+              <PlaylistItem
+                key={item.videoId}
+                playlistItem={item}
+                channelTitle={channelName}
+                handleVideoChange={handleVideoChange}
+                isActive={item.videoId === videoId}
+                index={index}
+              />
+            ))}
+          </Grid>
+        )}
       </Grid>
     </Box>
   );

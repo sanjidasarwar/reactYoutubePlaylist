@@ -23,6 +23,7 @@ function PlaylistItem({
   handleVideoChange,
   deleteIcon,
   isActive,
+  index,
 }) {
   const { thumbnails, title, videoId } = playlistItem;
   const [deleteAlert, setDeleteAlert] = useState(false);
@@ -48,6 +49,7 @@ function PlaylistItem({
           alignSelf: "center",
         }}
       />
+      <Typography sx={{ alignSelf: "center" }}>{index + 1}</Typography>
       <Box
         sx={{
           display: "flex",
