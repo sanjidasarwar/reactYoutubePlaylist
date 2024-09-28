@@ -7,6 +7,7 @@ import AllPlaylists from "./AllPlaylists";
 import FavouritePlaylist from "./FavouritePlaylist";
 import RecentPlaylist from "./RecentPlaylist";
 import CustomPlaylists from "./CustomPlaylists";
+import { useSelector } from "react-redux";
 
 function a11yProps(index) {
   return {
@@ -16,7 +17,8 @@ function a11yProps(index) {
 }
 
 function HomeTab() {
-  const [value, setValue] = useState(0);
+  const activeTab = useSelector((state) => state.tab.activeTab);
+  const [value, setValue] = useState(activeTab);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

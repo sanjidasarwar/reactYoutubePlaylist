@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import { useDispatch, useSelector } from "react-redux";
 import { addPlaylistName } from "../features/customPlaylists/customPlaylistSlice";
+import { updateTab } from "../features/tab/tabSlice";
 import AlertBox from "../components/AlertBox";
 import ShortUniqueId from "short-unique-id";
 
@@ -58,6 +59,7 @@ function AddCustomPlaylistModal() {
     }
 
     dispatch(addPlaylistName(playlistNameObj));
+    dispatch(updateTab(3));
     setShowSuccessAlert(true);
     handleCloseModal();
   };
