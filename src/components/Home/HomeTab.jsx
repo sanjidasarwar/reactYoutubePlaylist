@@ -2,7 +2,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabPanel from "./TabPanel";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AllPlaylists from "./AllPlaylists";
 import FavouritePlaylist from "./FavouritePlaylist";
 import RecentPlaylist from "./RecentPlaylist";
@@ -23,6 +23,10 @@ function HomeTab() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    setValue(activeTab);
+  }, [activeTab]);
 
   return (
     <Box
