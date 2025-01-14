@@ -114,7 +114,10 @@ export default function PlaylistForm({
         </Box>
 
         <Box sx={{ padding: 3 }}>
-          <Typography id="modal-modal-description">
+          <Typography
+            id="modal-modal-description"
+            sx={{ color: "secondary.main" }}
+          >
             Add a YouTube playlist ID or link
           </Typography>
           <TextField

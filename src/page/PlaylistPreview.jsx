@@ -1,14 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import usePlaylists from "../hooks/usePlaylists";
 import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import MainPlaylistCard from "../components/PlaylistPreview/MainPlaylistCard";
 import PlaylistItem from "../components/PlaylistPreview/PlaylistItem";
 import { useSelector } from "react-redux";
 import DefaultImg from "../assets/images/thumbnail.jpg";
-import { Stack, Typography } from "@mui/material";
 
 function Playlist() {
   const { playlistId } = useParams();

@@ -117,7 +117,10 @@ function AddCustomPlaylistModal() {
           </Box>
 
           <Box sx={{ padding: 3 }}>
-            <Typography id="modal-modal-description">
+            <Typography
+              id="modal-modal-description"
+              sx={{ color: "secondary.main" }}
+            >
               Add a YouTube video link to create your own playlist
             </Typography>
             <TextField
