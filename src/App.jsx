@@ -28,11 +28,44 @@ const router = createBrowserRouter(
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: {
+      main: "#FFD700",
+    },
+    secondary: {
+      main: "#4a4b6a",
+    },
     background: {
       default: "#111422",
     },
     text: {
       secondary: "#8A89A6",
+    },
+    typography: {
+      fontFamily: "Roboto, sans-serif",
+    },
+  },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "#38394f",
+          },
+          "&.Mui-selected": {
+            backgroundColor: "#4a4b6a",
+            color: "gold",
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "#FFD700",
+          },
+        },
+      },
     },
   },
 });

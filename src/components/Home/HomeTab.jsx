@@ -54,62 +54,10 @@ function HomeTab() {
           },
         }}
       >
-        <Tab
-          label="All"
-          {...a11yProps(0)}
-          sx={{
-            alignItems: "start",
-            "&:hover": {
-              backgroundColor: "#38394f",
-            },
-            "&.Mui-selected": {
-              backgroundColor: "#4a4b6a",
-              color: "gold",
-            },
-          }}
-        />
-        <Tab
-          label="Favourites"
-          {...a11yProps(1)}
-          sx={{
-            alignItems: "start",
-            "&:hover": {
-              backgroundColor: "#38394f",
-            },
-            "&.Mui-selected": {
-              backgroundColor: "#4a4b6a",
-              color: "gold",
-            },
-          }}
-        />
-        <Tab
-          label="Recent"
-          {...a11yProps(2)}
-          sx={{
-            alignItems: "start",
-            "&:hover": {
-              backgroundColor: "#38394f",
-            },
-            "&.Mui-selected": {
-              backgroundColor: "#4a4b6a",
-              color: "gold",
-            },
-          }}
-        />
-        <Tab
-          label="My Choice"
-          {...a11yProps(3)}
-          sx={{
-            alignItems: "start",
-            "&:hover": {
-              backgroundColor: "#38394f",
-            },
-            "&.Mui-selected": {
-              backgroundColor: "#4a4b6a",
-              color: "gold",
-            },
-          }}
-        />
+        <Tab label="All" {...a11yProps(0)} />
+        <Tab label="Favourites" {...a11yProps(1)} />
+        <Tab label="Recent" {...a11yProps(2)} />
+        <Tab label="My Choice" {...a11yProps(3)} />
       </Tabs>
       <Box
         sx={{

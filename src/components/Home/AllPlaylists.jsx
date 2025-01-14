@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import PlaylistCard from "../Playlist/PlaylistCard";
 import { useDispatch, useSelector } from "react-redux";
 import { removePlaylist } from "../../features/playlists/playlistsSlice";
