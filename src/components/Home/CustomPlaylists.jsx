@@ -111,11 +111,17 @@ function CustomPlaylists() {
             value={name}
             onChange={handlePlaylistChange}
           >
-            {playlistsIdArray.map((id) => (
-              <MenuItem value={id} key={id}>
-                {playlists[id].playlistTitle}
+            {playlistsIdArray.length > 0 ? (
+              playlistsIdArray.map((id) => (
+                <MenuItem value={id} key={id}>
+                  {playlists[id]?.playlistTitle || "Untitled Playlist"}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem value="" disabled>
+                No playlist created
               </MenuItem>
-            ))}
+            )}
           </Select>
         </FormControl>
         <Button
